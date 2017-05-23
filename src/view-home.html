@@ -9,6 +9,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="styles/shared-styles.html">
 
 <dom-module id="view-home">
@@ -20,6 +21,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         padding: 10px;
       }
     </style>
+    <!-- TODO: get instagram api working -->
+    <iron-ajax
+        auto
+        url="https://api.instagram.com/v1/tags/nofilter/media/recent?access_token=2122e774bdd44005ba53fb84478e67d6"
+        handle-as="json"
+        last-response="{{response}}"
+        on-response="_onResponse"
+        debounce-duration="300">
+    </iron-ajax>
 
     <div class="card">
       <div class="circle">1</div>
@@ -34,8 +44,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     Polymer({
       is: 'view-home',
 
+      properties: {
+        response: {
+          type: Array,
+          notify: true
+        }
+      },
+
       ready: function() {
         console.log('Homepage up!');
+      },
+
+      _onResponse: function() {
+        console.log(this.response)
       }
     });
   </script>
