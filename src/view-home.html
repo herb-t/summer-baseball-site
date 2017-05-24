@@ -20,23 +20,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         padding: 10px;
       }
+
+      .hero {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+      }
     </style>
     <!-- TODO: get instagram api working -->
-    <iron-ajax
+ <!--    <iron-ajax
         auto
         url="https://api.instagram.com/v1/tags/nofilter/media/recent?access_token=2122e774bdd44005ba53fb84478e67d6"
         handle-as="json"
         last-response="{{response}}"
         on-response="_onResponse"
         debounce-duration="300">
-    </iron-ajax>
+    </iron-ajax> -->
 
     <div class="card">
-      <div class="circle">1</div>
-      <h1>Home Page</h1>
-      <p>Home Page Madness ya'll!</p>
-      <p>Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Cu mei vide viris gloriatur, at populo eripuit sit.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat delectus alias nihil exercitationem unde obcaecati labore cum asperiores velit tempore illum reiciendis, hic, nam, vero libero corrupti ad, inventore magni.</p>
+      <img class="hero" src="../images/hero.jpg" alt="hero">
     </div>
   </template>
 

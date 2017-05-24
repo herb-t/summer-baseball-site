@@ -27,18 +27,49 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <template>
     <style include="reset">
       :host {
+        --site-max-width: 1280px;
         --app-primary-color: #4285f4;
-        --app-secondary-color: black;
+        --app-secondary-color: #fff;
+        --cardinal-red: #C41E3A;
+        --cardinal-navy: #0A2252;
+        --font-family-poppins: 'Poppins', sans-serif;
+        --font-family-open-sans: 'Open Sans', sans-serif;
 
         display: block;
       }
 
+      a {
+        font-family: var(--font-family-poppins);
+        text-decoration: none;
+        color: #fff;
+      }
+
+      h1, h2, h3 {
+        font-family: var(--font-family-poppins);
+      }
+
+      h4, h5, p, li {
+        font-family: var(--font-family-open-sans);
+      }
+
       app-header {
         color: #fff;
-        background-color: var(--app-primary-color);
+        background-color: var(--cardinal-red);
       }
+
       app-header paper-icon-button {
         --paper-icon-button-ink-color: white;
+      }
+
+      .site__header,
+      .site__content {
+        width: 100%;
+        max-width: var(--max-site-width);
+        margin: 0 auto;
+        padding: 0 16px;
+        -webkit-box-sizing: border-box;
+           -moz-box-sizing: border-box;
+                box-sizing: border-box;
       }
 
       .drawer-list {
@@ -48,34 +79,88 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       .drawer-list a {
         display: block;
         padding: 0 16px;
-        text-decoration: none;
-        color: var(--app-secondary-color);
+        color: var(--cardinal-navy);
         line-height: 40px;
       }
 
       .drawer-list a.iron-selected,
       .header-list a.iron-selected {
-        color: black;
-        font-weight: bold;
+        color: var(--cardinal-navy);
       }
 
       .header-list a {
         display: inline-block;
         margin-right: 20px;
+        letter-spacing: 1px;
       }
 
       .header-list a:last-child {
         margin-right: 0;
       }
 
+      .icon--hamburger {
+        display: none;
+      }
+
       .site__content-header {
         text-align: center;
         width: 100%;
-        max-width: 500px;
-        margin: 20px auto;
-        background: url('../images/logo.png')no-repeat right center;
+        var(--max-site-width);
+        margin: 0 auto;
+        padding: 32px 0 24px 0;
+        background: url('../images/logo.png')no-repeat 95% 50%;
         -webkit-background-size: contain;
-        background-size: contain;
+             -o-background-size: contain;
+                background-size: contain;
+        -webkit-box-sizing: border-box;
+           -moz-box-sizing: border-box;
+                box-sizing: border-box;
+      }
+
+      .site__main-headline {
+        font: 300 42px/60px var(--font-family-poppins);
+        color: var(--cardinal-navy);
+      }
+
+      .site__main-subheadline {
+        font: 300 22px/32px var(--font-family-open-sans);
+      }
+
+      .header-top-logo {
+        line-height: 64px;
+      }
+
+      .header__logo {
+        display: none;
+        width: 100%;
+        max-width: 45px;
+        height: auto;
+      }
+
+      /* header links breakpoint */
+      @media screen and (max-width: 680px) {
+        .icon--hamburger {
+          display: block;
+        }
+
+        .header-list {
+          display: none;
+        }
+
+        .site__content-header {
+          background: rgba(255, 255, 255, 0);
+        }
+
+        .header-top-logo {
+          text-indent: 10px;
+        }
+
+        .header__logo {
+          position: relative;
+          top: 12px;
+          display: inline-block;
+          margin-right: 20px;
+        }
       }
     </style>
 
@@ -89,7 +174,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <app-drawer-layout force-narrow fullbleed class="site-layout" id="site">
       <!-- Drawer content / off canvas nav -->
       <app-drawer id="drawer">
-        <app-toolbar>Menu</app-toolbar>
+        <app-toolbar>2017 Cardinals</app-toolbar>
         <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
           <a name="home" href="/home">Home</a>
           <a name="calendar" href="/calendar">Calendar</a>
@@ -102,15 +187,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <app-header-layout has-scrolling-region>
 
         <app-header condenses reveals effects="waterfall">
-          <app-toolbar>
-            <div main-title>My App</div>
+          <app-toolbar class="site__header">
+            <div class="header-top-logo" main-title><img class="header__logo" src="../images/logo.png">2017 Cardinals</div>
             <iron-selector selected="[[page]]" attr-for-selected="name" class="header-list" role="navigation">
               <a name="home" href="/home">Home</a>
               <a name="calendar" href="/calendar">Calendar</a>
               <a name="stats" href="/stats">Stats</a>
               <a name="contact" href="/contact">Contact</a>
             </iron-selector>
-            <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
+            <paper-icon-button class="icon--hamburger" icon="my-icons:menu" drawer-toggle></paper-icon-button>
           </app-toolbar>
         </app-header>
 

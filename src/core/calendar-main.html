@@ -51,10 +51,10 @@ Custom property | Description | Default
     <style>
 
       :host {
-        --calendar-padding: 25px;
+        --calendar-padding: 0;
         --calendar-max-width: 650px;
-        --calendar-event-color: #77de45;
-        --calendar-event-color-hover: #529631;
+        --calendar-event-color: var(--cardinal-red);
+        --calendar-event-color-hover: var(--cardinal-navy);
         --calendar-event-font-color: #ffffff;
         --calendar-header-arrow-color: #000000;
         --calendar-header-arrow-color-hover: #77de45;
@@ -62,8 +62,14 @@ Custom property | Description | Default
         --calendar-entry-border: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
         --calendar-entry-border-hover: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 
-        display: block;
-        padding: var(--calendar-padding);
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-flex-direction: row;
+            -ms-flex-direction: row;
+                flex-direction: row;
+        padding: 16px 0 0 0;
       }
 
       #calendar {
@@ -307,7 +313,12 @@ Custom property | Description | Default
       }
 
       #loader {
-        position: relative;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left:0;
+        pointer-events: none;
         display: -webkit-box;
         display: -ms-flexbox;
         display: -webkit-flex;
@@ -316,13 +327,18 @@ Custom property | Description | Default
                 align-items: center;
         -webkit-justify-content: center;
                 justify-content: center;
-        -webkit-flex: 1;
-            -ms-flex: 1;
-                flex: 1;
-        margin-top: 20px;
+        -webkit-flex-direction: column;
+            -ms-flex-direction: column;
+                flex-direction: column;
       }
 
       @media screen and (max-width: 767px) {
+
+        :host {
+          -webkit-flex-direction: column;
+              -ms-flex-direction: column;
+                  flex-direction: column;
+        }
 
         #calendar {
           padding: 20px 0;

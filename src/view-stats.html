@@ -9,6 +9,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="styles/shared-styles.html">
 
 <dom-module id="view-stats">
@@ -19,14 +20,82 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         padding: 10px;
       }
+
+      .stats-container {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-flex-wrap: nowrap;
+            -ms-flex-wrap: nowrap;
+                flex-wrap: nowrap;
+        -webkit-align-items: center;
+                align-items: center;
+        -webkit-justify-content: center;
+                justify-content: center;
+        -webkit-flex-direction: column;
+            -ms-flex-direction: column;
+                flex-direction: column;
+      }
+
+      .stat-box {
+        font: 300 18px/22px var(--font-family-open-sans);
+        color: var(--cardinal-navy);
+        padding: 0;
+        list-style: none;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-flex-wrap: nowrap;
+            -ms-flex-wrap: nowrap;
+                flex-wrap: nowrap;
+        -webkit-align-items: center;
+                align-items: center;
+        -webkit-justify-content: center;
+                justify-content: center;
+      }
+
+      .stat-box-header {
+        font: 300 18px/22px var(--font-family-poppins);
+        color: var(--cardinal-red);
+      }
+
+      .stat-item {
+        -webkit-flex: 1;
+            -ms-flex: 1;
+                flex: 1;
+      }
     </style>
 
+    <iron-ajax
+        auto
+        url="../data.json"
+        handle-as="json"
+        last-response="{{response}}"
+        on-response="_onDataResponse"
+        debounce-duration="300">
+    </iron-ajax>
+
     <div class="card">
-      <div class="circle">3</div>
-      <h1>Stats Page</h1>
-      <p>Stats Page Madness ya'll!</p>
-      <p>Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Cu mei vide viris gloriatur, at populo eripuit sit.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat delectus alias nihil exercitationem unde obcaecati labore cum asperiores velit tempore illum reiciendis, hic, nam, vero libero corrupti ad, inventore magni.</p>
+      <h1 class="card__headline">Stats</h1>
+
+      <ul class="stat-box stat-box-header">
+        <li class="stat-item">Player</li>
+        <li class="stat-item">Hits</li>
+        <li class="stat-item">Strikeouts</li>
+      </ul>
+
+      <template is="dom-repeat" items="{{response}}" as="player" class="stats-container">
+
+        <ul class="stat-box">
+          <li class="stat-item">[[player.name]]</li>
+          <li class="stat-item">[[player.hits]]</li>
+          <li class="stat-item">[[player.strikeouts]]</li>
+        </ul>
+
+      </template>
+
     </div>
   </template>
 
@@ -34,8 +103,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     Polymer({
       is: 'view-stats',
 
+      properties: {
+        response: {
+          type: Array,
+          notify: true
+        }
+      },
+
       ready: function() {
 
+      },
+
+      _onDataResponse: function() {
+        //console.log(this.response);
       }
     });
   </script>

@@ -1,19 +1,17 @@
-{
-  "players": [
-    {
-      "name": "kid1",
-      "hits": 2,
-      "strikeouts": 5
-    },
-    {
-      "name": "kid2",
-      "hits": 25,
-      "strikeouts": 10
-    },
-    {
-      "name": "kid3",
-      "hits": 5,
-      "strikeouts": 4
-    }
-  ]
-}
+[
+  {
+    "name": "kid1",
+    "hits": 2,
+    "strikeouts": 5
+  },
+  {
+    "name": "kid2",
+    "hits": 25,
+    "strikeouts": 10
+  },
+  {
+    "name": "kid3",
+    "hits": 5,
+    "strikeouts": 4
+  }
+]
