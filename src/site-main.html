@@ -105,9 +105,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       .site__content-header {
         text-align: center;
         width: 100%;
-        var(--max-site-width);
-        margin: 0 auto;
-        padding: 32px 0 24px 0;
+        max-width: var(--max-site-width);
+        padding: 40px 0;
         background: url('../images/logo.png')no-repeat 95% 50%;
         -webkit-background-size: contain;
              -o-background-size: contain;
@@ -161,6 +160,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           display: inline-block;
           margin-right: 20px;
         }
+
+        .site__main-subheadline {
+          font-size: 18px;
+          line-height: 24px;
+          width: 100%;
+          max-width: 250px;
+          margin: 0 auto;
+        }
       }
     </style>
 
@@ -201,7 +208,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         <!-- Site Headline -->
         <div class="site__content-header">
-          <h1 class="site__main-headline">Ann Arbor Cardinals</h1>
+          <h1 class="site__main-headline">Cardinals</h1>
           <h2 class="site__main-subheadline">2017 Rec & Ed Summer Baseball League</h2>
         </div>
 

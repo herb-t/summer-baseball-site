@@ -62,11 +62,40 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       .stat-item {
+        font-size: 12px;
+        line-height: 18px;
+        padding: 0 1%;
+        -webkit-box-sizing: border-box;
+           -moz-box-sizing: border-box;
+                box-sizing: border-box;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-align-items: center;
+                align-items: center;
+        -webkit-justify-content: center;
+                justify-content: center;
+        -webkit-flex-direction: column;
+            -ms-flex-direction: column;
+                flex-direction: column;
         -webkit-flex: 1;
             -ms-flex: 1;
                 flex: 1;
       }
-    </style>
+
+      .item--player {
+        -webkit-align-items: flex-start;
+                align-items: flex-start;
+      }
+
+      @media screen and (max-width: 480px) {
+        .item--player,
+        .item--head {
+          font-size: 10px;
+        }
+      }
+     </style>
 
     <iron-ajax
         auto
@@ -81,17 +110,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <h1 class="card__headline">Stats</h1>
 
       <ul class="stat-box stat-box-header">
-        <li class="stat-item">Player</li>
-        <li class="stat-item">Hits</li>
-        <li class="stat-item">Strikeouts</li>
+        <li class="stat-item item--head">Player</li>
+        <li class="stat-item item--head">At Bats</li>
+        <li class="stat-item item--head">Hits</li>
+        <li class="stat-item item--head">BA</li>
+        <li class="stat-item item--head">At Bats</li>
+        <li class="stat-item item--head">Hits</li>
+        <li class="stat-item item--head">BA</li>
       </ul>
 
       <template is="dom-repeat" items="{{response}}" as="player" class="stats-container">
 
         <ul class="stat-box">
-          <li class="stat-item">[[player.name]]</li>
+          <li class="stat-item item--player">[[player.name]]</li>
+          <li class="stat-item">[[player.atBats]]</li>
           <li class="stat-item">[[player.hits]]</li>
-          <li class="stat-item">[[player.strikeouts]]</li>
+          <li class="stat-item">[[player.ba]]</li>
+          <li class="stat-item">[[player.atBats]]</li>
+          <li class="stat-item">[[player.hits]]</li>
+          <li class="stat-item">[[player.ba]]</li>
         </ul>
 
       </template>

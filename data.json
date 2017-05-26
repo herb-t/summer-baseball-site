@@ -1,17 +1,101 @@
 [
   {
-    "name": "kid1",
-    "hits": 2,
-    "strikeouts": 5
+    "name": "Morrison Arendall",
+    "atBats": 0,
+    "hits": 0,
+    "ba": 0,
+    "atBats": 0,
+    "hits": 0,
+    "ba": 0
   },
   {
-    "name": "kid2",
-    "hits": 25,
-    "strikeouts": 10
+    "name": "Drew Gagliardi",
+    "atBats": 0,
+    "hits": 0,
+    "ba": 0,
+    "atBats": 0,
+    "hits": 0,
+    "ba": 0
   },
   {
-    "name": "kid3",
-    "hits": 5,
-    "strikeouts": 4
+    "name": "Coleman Grengs",
+    "atBats": 0,
+    "hits": 0,
+    "ba": 0,
+    "atBats": 0,
+    "hits": 0,
+    "ba": 0
+  },
+  {
+    "name": "Nicholas Lukela",
+    "atBats": 0,
+    "hits": 0,
+    "ba": 0,
+    "atBats": 0,
+    "hits": 0,
+    "ba": 0
+  },
+  {
+    "name": "Nathaneil Tobias Marano",
+    "atBats": 0,
+    "hits": 0,
+    "ba": 0,
+    "atBats": 0,
+    "hits": 0,
+    "ba": 0
+  },
+  {
+    "name": "Aidan Moran",
+    "atBats": 0,
+    "hits": 0,
+    "ba": 0,
+    "atBats": 0,
+    "hits": 0,
+    "ba": 0
+  },
+  {
+    "name": "Ayden Thelen-Perry",
+    "atBats": 0,
+    "hits": 0,
+    "ba": 0,
+    "atBats": 0,
+    "hits": 0,
+    "ba": 0
+  },
+  {
+    "name": "Nathaniel Werns",
+    "atBats": 0,
+    "hits": 0,
+    "ba": 0,
+    "atBats": 0,
+    "hits": 0,
+    "ba": 0
+  },
+  {
+    "name": "Leo Wywrot",
+    "atBats": 0,
+    "hits": 0,
+    "ba": 0,
+    "atBats": 0,
+    "hits": 0,
+    "ba": 0
+  },
+  {
+    "name": "Mathew Zwolensky",
+    "atBats": 0,
+    "hits": 0,
+    "ba": 0,
+    "atBats": 0,
+    "hits": 0,
+    "ba": 0
+  },
+  {
+    "name": "Charles Branch",
+    "atBats": 0,
+    "hits": 0,
+    "ba": 0,
+    "atBats": 0,
+    "hits": 0,
+    "ba": 0
   }
 ]
