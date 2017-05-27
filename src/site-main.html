@@ -73,6 +73,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         box-sizing: border-box;
       }
 
+      #drawer app-toolbar {
+        background: var(--cardinal-navy);
+        color: #fff;
+      }
+
       .drawer-list {
         margin: 0 20px;
       }
@@ -82,10 +87,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         padding: 0 16px;
         color: var(--cardinal-navy);
         line-height: 40px;
+        outline: none;
+        border: none;
       }
 
       .drawer-list a.iron-selected {
-        color: var(--cardinal-navy);
+        background: var(--cardinal-red);
+        color: #fff;
       }
 
       .header-list a {
@@ -129,6 +137,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       .site__main-subheadline {
         font: 300 22px/32px var(--font-family-open-sans);
+      }
+
+      .site-title {
+        width: 100%;
+        max-width: var(--max-site-width);
+        margin: 16px auto 0 auto;
+        padding: 0 52px;
+        text-align: right;
+        -webkit-box-sizing: border-box;
+           -moz-box-sizing: border-box;
+                box-sizing: border-box;
       }
 
       .header-top-logo {
@@ -227,6 +246,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <paper-icon-button class="icon--hamburger" icon="my-icons:menu" drawer-toggle></paper-icon-button>
           </app-toolbar>
         </app-header>
+
+        <h1 class="site-title">2017 Rec & Ed Summer League</h1>
 
         <!-- Main site content -->
         <main class="site__content" id="siteContent">

@@ -239,6 +239,53 @@
       --iron-icon-fill-color: var(--cardinal-red);
     }
 
+    .calendar__key,
+    .calendar__key li {
+      font-size: 10px;
+      line-height: 24px;
+      padding: 0;
+      margin: 0;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-align-items: center;
+              align-items: center;
+      -webkit-justify-content: flex-start;
+              justify-content: flex-start;
+    }
+
+    .calendar__key {
+      margin-top: 16px;
+      padding-left: 16px;
+    }
+
+    .calendar__key li {
+      list-style: none;
+      margin-right: 32px;
+    }
+
+    .calendar__key li:last-child {
+      margin-right: 0;
+    }
+
+    .key__eg {
+      width: 8px;
+      height: 8px;
+      border: 3px solid var(--cardinal-red);
+      margin-left: 5px;
+      -webkit-border-radius: 50%;
+              border-radius: 50%;
+    }
+
+    .eg--practices {
+      border-color: var(--cardinal-navy);
+    }
+
+    .eg--other {
+      border-color: var(--cardinal-yellow);
+    }
+
     /* Mobile styles */
 
     @media screen and (max-width: 480px) {
@@ -285,6 +332,21 @@
       </div>
 
     </div>
+
+    <ul class="calendar__key">
+      <li>
+        Games
+        <div class="key__eg eg--games"></div>
+      </li>
+      <li>
+        Practices
+        <div class="key__eg eg--practices"></div>
+      </li>
+      <li>
+        Other
+        <div class="key__eg eg--other"></div>
+      </li>
+    </ul>
 
   </template>
   <script>
