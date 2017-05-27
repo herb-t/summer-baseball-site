@@ -105,9 +105,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         width: 100%;
         height: 100%;
         margin: 0;
+        min-height: 100vh;
         font-family: 'Open Sans', sans-serif;
         line-height: 1.5;
-        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+           -moz-box-sizing: border-box;
+                box-sizing: border-box;
+      }
+      body:before {
+        content: '';
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        z-index: 0;
+        opacity: 0.3;
+        pointer-events: none;
+        background: url('images/background-cardinals.png')no-repeat 50% 75px;
+        -webkit-background-size: contain;
+             -o-background-size: contain;
+                background-size: contain;
       }
     </style>
   </head>

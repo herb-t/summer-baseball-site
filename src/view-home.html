@@ -18,7 +18,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <style include="shared-styles">
       :host {
         display: block;
-        padding: 35px 0;
+        padding: 16px;
+        background: #FFF;
       }
 
       .hero {
@@ -97,6 +98,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       .instagram__photo img {
+        display: block;
         width: 100%;
         max-width: 100%;
         height: auto;
@@ -141,7 +143,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div class="hero-header"></div>
     </div>
 
-    <div class="card navy">
+    <div class="card">
       <div class="instagram__feed">
         <template is="dom-repeat" items="{{responseData}}" as="picture">
           <a href="{{picture.link}}" class="instagram__photo" target="_blank">
