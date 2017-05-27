@@ -67,7 +67,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         width: 100%;
         max-width: var(--max-site-width);
         margin: 0 auto;
-        padding: 0 16px;
+        padding: 0 20px;
         -webkit-box-sizing: border-box;
            -moz-box-sizing: border-box;
                 box-sizing: border-box;
@@ -84,12 +84,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         line-height: 40px;
       }
 
-      .drawer-list a.iron-selected,
-      .header-list a.iron-selected {
+      .drawer-list a.iron-selected {
         color: var(--cardinal-navy);
       }
 
       .header-list a {
+        font: 300 16px/24px var(--font-family-poppins);
+        text-transform: uppercase;
         display: inline-block;
         margin-right: 20px;
         letter-spacing: 1px;
@@ -118,7 +119,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       .site__main-headline {
-        font: 300 42px/60px var(--font-family-poppins);
+        font: 300 24px/60px var(--font-family-poppins);
         color: var(--cardinal-navy);
       }
 
@@ -127,14 +128,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       .header-top-logo {
-        line-height: 64px;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: flex-start;
+        -webkit-justify-content: flex-start;
+        -ms-flex-pack: flex-start;
+        justify-content: flex-start;
+        height: 100%;
       }
 
       .header__logo {
-        display: none;
-        width: 100%;
-        max-width: 45px;
-        height: auto;
+        height: 46px;
+      }
+
+      @media screen and (min-width: 680px) {
+        .header-top-logo {
+          -webkit-box-align: center;
+          -webkit-align-items: center;
+          -ms-flex-align: center;
+          align-items: center;
+        }
       }
 
       /* header links breakpoint */
@@ -196,7 +211,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         <app-header condenses reveals effects="waterfall">
           <app-toolbar class="site__header">
-            <div class="header-top-logo" main-title><img class="header__logo" src="../images/logo.png"></div>
+            <div class="header-top-logo" main-title>
+              <img class="header__logo" src="../images/logo-cardinals.png">
+            </div>
             <iron-selector selected="[[page]]" attr-for-selected="name" class="header-list" role="navigation">
               <a name="home" href="/home">Home</a>
               <a name="calendar" href="/calendar">Calendar</a>
@@ -206,12 +223,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <paper-icon-button class="icon--hamburger" icon="my-icons:menu" drawer-toggle></paper-icon-button>
           </app-toolbar>
         </app-header>
-
-        <!-- Site Headline -->
-        <div class="site__content-header">
-          <h1 class="site__main-headline">Cardinals</h1>
-          <h2 class="site__main-subheadline">2017 Rec & Ed Summer Baseball League</h2>
-        </div>
 
         <!-- Main site content -->
         <main class="site__content" id="siteContent">
