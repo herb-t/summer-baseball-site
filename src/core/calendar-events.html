@@ -26,15 +26,14 @@
 
       :host {
         display: block;
-        font-family: 'Roboto', Arial , sans-serif;
+        font-family: 'Open Sans', sans-serif;
         font-size: 14px;
         line-height: 29px;
-        color: #1a1a1a;
-        background: #f5f5f5;
+        color: var(--cardinal-navy);
       }
 
       #wrapper {
-        border-bottom: 1px solid #f5f5f5;
+        /*border-bottom: 1px solid var(--cardinal-navy);*/
         display: -webkit-box;
         display: -webkit-flex;
         display: -ms-flexbox;
@@ -44,7 +43,7 @@
       }
 
       #calendar {
-        border-right: 1px solid #f5f5f5;
+        /*border-right: 1px solid var(--cardinal-navy);*/
         padding: 24px 60px 24px 0;
         width: 370px;
       }
@@ -79,6 +78,10 @@
         line-height: 32px;
       }
 
+      .event {
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+      }
+
       .event .more {
         max-height: 0;
         overflow: hidden;
@@ -111,7 +114,7 @@
       }
 
       .more {
-        border-top: 1px solid #ff0050;
+        border-top: 1px solid var(--cardinal-red);
         box-sizing: border-box;
       }
 
@@ -123,7 +126,7 @@
         right: 10px;
         --iron-icon-width: 30px;
         --iron-icon-height: 30px;
-        --iron-icon-fill-color: #ff0050;
+        --iron-icon-fill-color: var(--cardinal-red);
       }
 
       #spinner {
@@ -131,13 +134,14 @@
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
-        --paper-spinner-color: #ff0050;
+        --paper-spinner-color: var(--cardinal-red);
       }
 
       .message {
         position: absolute;
         left: 50%;
         top: 50%;
+        -webkit-transform: translate(-50%, -50%);
         transform: translate(-50%, -50%);
         font-size: 18px;
         line-height: 32px;
@@ -152,8 +156,12 @@
         #wrapper {
           margin: 0 auto;
           max-width: 370px;
-          flex-direction: column;
-          flex-wrap: wrap;
+          -webkit-flex-direction: column;
+              -ms-flex-direction: column;
+                  flex-direction: column;
+          -webkit-flex-wrap: wrap;
+              -ms-flex-wrap: wrap;
+                  flex-wrap: wrap;
         }
 
         #calendar {
