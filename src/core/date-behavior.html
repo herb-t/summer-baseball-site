@@ -1,0 +1,153 @@
+<!--
+`<hook-date-behavior>` is a behavior for processing date strings.
+
+@element hook-date-behavior
+@demo demo/index.html
+-->
+
+<script>
+  /**
+   * `DateBehaviors.EventsBehavior` provides common utility methods for events elements.
+   * @polymerBehavior DateBehaviors.EventsBehavior
+   */
+
+  (function() {
+  'use strict';
+  
+  window.DateBehaviors = window.DateBehaviors || {};
+  DateBehaviors.EventsBehavior = {
+    /**
+     * @private
+     */
+    _getDateDayString: function(date) {
+      return date ? date.toISOString().slice(0, 10) : '';
+    },
+    /**
+     * @private
+     */
+    _getDateMonthString: function(date) {
+      return date ? date.toISOString().slice(0, 7) : '';
+    },
+    /**
+     * @private
+     */
+    _getDateYearString: function(date) {
+      return date ? date.getFullYear() : '';
+    },
+    /**
+     * @private
+     */
+    _getDisplayDateString: function(startDate, endDate, lang, dir) {
+      var startDayString = this._getDateDayString(startDate);
+      var startMonthString = this._getDateMonthString(startDate);
+      var startYearString = this._getDateYearString(startDate);
+      var endDayString = this._getDateDayString(endDate);
+      var endMonthString = this._getDateMonthString(endDate);
+      var endYearString = this._getDateYearString(endDate);
+      var result;
+      if (startDayString === endDayString) {
+        result = this._getSingleDateString(startDate, lang, dir);
+      } else if (startYearString !== endYearString) {
+        result = this._getMultipleYearDateString(startDate, endDate, lang, dir);
+      } else if (startMonthString !== endMonthString) {
+        result = this._getMultipleMonthDateString(startDate, endDate, lang, dir);
+      } else {
+        result = this._getMultipleDateString(startDate, endDate, lang, dir);
+      }
+      return result;
+    },
+    /**
+     * September 19, 2016
+     * @private
+     */
+    _getSingleDateString: function(startDate, lang, dir) {
+      var startFormatter = new Intl.DateTimeFormat(lang, {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric'
+      });
+      var startText = startFormatter.format(startDate);
+      var result = [
+        this._wrapDirString(startText, dir)
+      ];
+      return result.join('');
+    },
+    /**
+     * September 19-24, 2016
+     * @private
+     */
+    _getMultipleDateString: function(startDate, endDate, lang, dir) {
+      var startFormatter = new Intl.DateTimeFormat(lang, {
+        month: 'long',
+        day: 'numeric'
+      });
+      var endFormatter = new Intl.DateTimeFormat(lang, {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric'
+      });
+      var startText = startFormatter.format(startDate);
+      var endText = endFormatter.format(endDate);
+      var result = [
+        this._wrapDirString(startText, dir),
+        ' \u2013 ',
+        this._wrapDirString(endText, dir)
+      ];
+      return result.join('');
+    },
+    /**
+     * September 19-October 24, 2016
+     * @private
+     */
+    _getMultipleMonthDateString: function(startDate, endDate, lang, dir) {
+      var startFormatter = new Intl.DateTimeFormat(lang, {
+        month: 'long',
+        day: 'numeric'
+      });
+      var endFormatter = new Intl.DateTimeFormat(lang, {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric'
+      });
+      var startText = startFormatter.format(startDate);
+      var endText = endFormatter.format(endDate);
+      var result = [
+        this._wrapDirString(startText, dir),
+        ' \u2013 ',
+        this._wrapDirString(endText, dir)
+      ];
+      return result.join('');
+    },
+    /**
+     * December 19,2016-January 24, 2017
+     * @private
+     */
+    _getMultipleYearDateString: function(startDate, endDate, lang, dir) {
+      var startFormatter = new Intl.DateTimeFormat(lang, {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric'
+      });
+      var endFormatter = new Intl.DateTimeFormat(lang, {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric'
+      });
+      var startText = startFormatter.format(startDate);
+      var endText = endFormatter.format(endDate);
+      var result = [
+        this._wrapDirString(startText, dir),
+        ' \u2013 ',
+        this._wrapDirString(endText, dir)
+      ];
+      return result.join('');
+    },
+    /**
+     * Wrap strings with unicode format control codepoints based on language direction
+     */
+    _wrapDirString: function(str, dir) {
+      return dir === 'rtl' ? '\u202B' + str + '\u202C' : '\u202A' + str + '\u202C';
+    }
+  };
+  })();
+</script>

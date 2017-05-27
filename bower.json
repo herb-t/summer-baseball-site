@@ -19,7 +19,8 @@
     "paper-elements": "PolymerElements/paper-elements#^1.0.1",
     "polymer": "Polymer/polymer#^1.6.0",
     "google-apis": "GoogleWebComponents/google-apis#^1.1.6",
-    "instafeed.js": "stevenschobert/instafeed.js#^1.4.1"
+    "instafeed.js": "stevenschobert/instafeed.js#^1.4.1",
+    "iron-icons": "PolymerElements/iron-icons#^2.0.0"
   },
   "devDependencies": {
     "web-component-tester": "^4.0.0"

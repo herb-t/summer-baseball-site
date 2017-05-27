@@ -1,0 +1,540 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/google-apis/google-client-loader.html">
+<link rel="import" href="../../bower_components/iron-icons/av-icons.html">
+<link rel="import" href="date-behavior.html">
+
+
+
+<!--
+<!--
+`<calendar-widget>` is an element for populating and creating a calendar widget.
+
+### Example:
+
+    <hook-calendar
+      current-date="currentDate"
+      events="events"
+      current-month="currentMonth">
+    </hook-calendar>
+
+@element calendar-widget
+-->
+
+<dom-module id="calendar-widget">
+  <template>
+    <style is="custom-style">
+
+      /* Base styles */
+
+      :host {
+        display: block;
+        background-color: var(--hook-calendar-background, white);
+        font-family: 'Roboto', Arial , sans-serif;
+        font-size: 14px;
+        line-height: 29px;
+        color: #1a1a1a;
+        background: #f5f5f5;
+      }
+
+      /* Header styles */
+
+      #header {
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        font-size: 18px;
+        font-weight: var(--yt-font-medium);
+        line-height: 24px;
+        margin: 0 46px 18px 46px;
+        text-align: center;
+      }
+
+      #header .icon {
+        cursor: pointer;
+        display: block;
+        padding: 0 14px;
+      }
+
+      #header .title {
+        display: block;
+        font-weight: 600;
+        -webkit-box-flex: 1;
+        -webkit-flex: 1 1 0%;
+        -ms-flex: 1 1 0%;
+        flex: 1 1 0%;
+      }
+
+      /* Entry styles */
+
+      .entries {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        margin: 0 0 4px 0;
+        text-align: center;
+      }
+
+      .entry {
+        box-sizing: border-box;
+        width: 14%;
+        height: 40px;
+        line-height: 36px;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        position: relative;
+        margin-bottom: 4px;
+      }
+
+      .entry .text {
+        display: block;
+        position: relative;
+        width: 40px;
+        border: none;
+        border-radius: 50%;
+        box-sizing: border-box;
+        padding: 2px;
+        z-index: 1;
+      }
+
+      /* Active styles */
+
+      .entry.busy {
+        cursor: pointer;
+      }
+
+      .entry.busy.hover .text {
+        background: #ff0050;
+      }
+
+      .entry.start .text {
+        border: 2px solid #ff0050;
+        padding: 0;
+      }
+
+      .entry.selected {
+        color: #fff;
+        background: #ff0050;
+      }
+
+      .entry.selected .text {
+        background: #ff0050;
+      }
+
+      /* Entry layout styles */
+
+      .entry.selected.month-start,
+      .entry.selected.week-start,
+      .entry.selected-start,
+      .entry.selected.month-end,
+      .entry.selected.week-end,
+      .entry.selected-end {
+        background: transparent;
+      }
+
+      .entry.selected.month-start:before,
+      .entry.selected.week-start:before,
+      .entry.selected-start:before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 50%;
+        height: 100%;
+        background: #ff0050;
+        z-index: 0;
+      }
+
+      .entry.selected.month-end:before,
+      .entry.selected.week-end:before,
+      .entry.selected-end:before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 50%;
+        height: 100%;
+        background: #ff0050;
+        z-index: 0;
+      }
+
+      .entry.selected-start.selected-end:before,
+      .entry.selected-start.week-end:before,
+      .entry.selected-end.week-start:before,
+      .entry.selected.month-start.week-end:before,
+      .entry.selected.week-start.month-end:before {
+        display: none;
+      }
+
+      /* Icon styles */
+
+      .icon {
+        --iron-icon-fill-color: #ff0050;
+      }
+
+      /* Mobile styles */
+
+      @media screen and (max-width: 480px) {
+
+
+        #header {
+          margin: 0 10px 18px 10px;
+        }
+
+      }
+
+    </style>
+
+    <!-- calendar container -->
+
+    <div id="hook-calendar">
+
+      <!-- header container -->
+
+      <div id="header">
+        <iron-icon icon="av:fast-rewind" class="icon" on-tap="prev"></iron-icon>
+        <span class="title">[[title]]</span>
+        <iron-icon icon="av:fast-forward" class="icon" on-tap="next"></iron-icon>
+      </div>
+
+      <!-- entry container -->
+
+      <div id="content">
+        <div class="entries">
+          <template is="dom-repeat" items="[[entries]]" as="entry">
+            <span class$="entry [[entry.classes]]" on-tap="_toggleEvent"><span class="text">[[entry.label]]</span></span>
+          </template>
+        </div>
+      </div>
+
+    </div>
+
+  </template>
+  <script>
+  (function() {
+    'use strict';
+
+    Polymer({
+      is: 'calendar-widget',
+
+      behaviors: [DateBehaviors.EventsBehavior],
+
+      properties: {
+        /**
+         * Current date
+         */
+        currentDate: Date,
+        /**
+         * Array that holds all of the events.
+         */
+        events: Array,
+        /**
+         * Compute title
+         */
+        title: {
+          type: String,
+          computed: '_computeTitle(currentDate)'
+        },
+        /**
+         * Compute entries
+         */
+        entries: {
+          type: Array,
+          computed: '_computeEntries(currentDate)'
+        },
+        /**
+         * Compute current month
+         */
+        currentMonth: {
+          type: String,
+          notify: true,
+          computed: '_computeCurrentMonth(currentDate)'
+        }
+      },
+
+      /**
+       * Observers for classes and events.
+       */
+      observers: [
+        '_setCalendarEntriesEvents(entries, events, events.*)',
+        '_setCalendarEntryClasses(entries, events.*)'
+      ],
+
+      /**
+       * Compute title from currentDate
+       * @private
+       */
+      _computeTitle: function(currentDate) {
+
+        if (!this.titleFormatter) {
+          this.titleFormatter = new Intl.DateTimeFormat('en', {
+            month: 'long',
+            year: 'numeric'
+          });
+        }
+
+        return this.titleFormatter.format(currentDate);
+
+      },
+
+      /**
+       * Compute entries for each month.
+       * @private
+       */
+      _computeEntries: function(currentDate) {
+
+        var entries = [];
+        var currentYear = currentDate.getFullYear();
+        var currentMonth = currentDate.getMonth();
+        var firstDate = new Date(currentYear, currentMonth, 1);
+        var lastDate = new Date(currentYear, currentMonth + 1, 0);
+
+        // add blank dates to pad before month starts in week
+
+        var firstDayInWeek = firstDate.getDay();
+
+        while (firstDayInWeek-- > 0) {
+          entries.push(this._getCalendarEntry());
+        }
+
+        // add an item for each date in the month
+
+        var lastDayInMonth = lastDate.getDate();
+        var i = 0;
+        var d;
+
+        while (i++ < lastDayInMonth)  {
+          d = new Date(currentYear, currentMonth, i);
+          entries.push(this._getCalendarEntry(d, {lastDay: lastDayInMonth}));
+        }
+
+        // add blank dates to pad after month ends in week
+
+        var lastDayInWeek = lastDate.getDay();
+
+        while (lastDayInWeek++ < 6) {
+          entries.push(this._getCalendarEntry());
+        }
+
+        return entries;
+      },
+
+      /**
+       * Set up formatting properties for each month.
+       * @private
+       */
+      _getCalendarEntry: function(date, options) {
+
+        if (!this.labelFormatter) {
+          this.labelFormatter = new Intl.DateTimeFormat('en', {
+            day: 'numeric'
+          });
+        }
+
+        return date ? {
+          label: this.labelFormatter.format(date),
+          date: date,
+          dateText: this._getDateDayString(date),
+          monthFirst: date.getDate() === 1,
+          monthLast: date.getDate() === options.lastDay,
+          weekFirst: date.getDay() === 0,
+          weekLast: date.getDay() === 6
+        } : {
+          label: '',
+          date: null
+        };
+
+      },
+
+      /**
+       * Define relationship between calendar entries and events.
+       * @private
+       */
+      _setCalendarEntriesEvents: function(entries, events) {
+
+        entries.forEach(function(entry, i) {
+
+          var entryEvents = entry.date ? events.filter(function(event) {
+
+            var dateText = entry.dateText;
+            var startText = event.start.dateText;
+            var endText = event.end.dateText;
+
+            return event.visible && dateText >= startText && dateText <= endText;
+
+          }) : [];
+
+          this.set('entries.' + i + '.events', entryEvents);
+
+        }, this);
+
+      },
+
+      /**
+       * Set classes for entry properties.
+       * @private
+       */
+      _setCalendarEntryClasses: function(entries) {
+
+        entries.forEach(function(entry, i) {
+
+          var classes = [];
+
+          if (entry.date) {
+
+            if (entry.monthFirst) {
+              classes.push('month-start');
+            }
+            if (entry.monthLast) {
+              classes.push('month-end');
+            }
+            if (entry.weekFirst) {
+              classes.push('week-start');
+            }
+            if (entry.weekLast) {
+              classes.push('week-end');
+            }
+            if (entry.events.length) {
+              classes.push('busy');
+            }
+
+            entry.events.forEach(function(event) {
+
+              var dateText = entry.dateText;
+              var startText = event.start.dateText;
+              var endText = event.end.dateText;
+
+              if (event.selected) {
+                classes.push('selected');
+                if (dateText === startText) {
+                  classes.push('selected-start');
+                }
+                if (dateText === endText) {
+                  classes.push('selected-end');
+                }
+              } else if (dateText === startText) {
+                classes.push('start');
+              }
+
+            });
+
+          }
+
+          this.set('entries.' + i + '.classes', classes.join(' '));
+
+        }, this);
+
+      },
+
+      /**
+       * Return current month.
+       * @private
+       */
+      _computeCurrentMonth: function(currentDate) {
+
+        return this._getDateMonthString(currentDate);
+
+      },
+
+      /**
+       * Set to previous month.
+       */
+      prev: function() {
+
+        var currentDate = this.currentDate;
+        var year = currentDate.getFullYear();
+        var month = currentDate.getMonth();
+
+        this.currentDate = new Date(year, month - 1, 1);
+
+      },
+
+      /**
+       * Set to next month.
+       */
+      next: function() {
+
+        var currentDate = this.currentDate;
+        var year = currentDate.getFullYear();
+        var month = currentDate.getMonth();
+
+        this.currentDate = new Date(year, month + 1, 1);
+
+      },
+
+      /**
+       * Get the currently selected event, if any, for a date item.
+       * @private
+       */
+      _getSelectedEvent: function(events) {
+
+        return events && events.filter(function(event) {
+          return event.selected;
+        }).pop();
+
+      },
+
+      /**
+       * Get the next event in the cycle for a date item.
+       * @private
+       */
+      _getNextEvent: function(events) {
+
+        var event = this._getSelectedEvent(events);
+        var index = events.indexOf(event);
+
+        // select the next event by incrementing the index
+        return events[index + 1];
+
+      },
+
+      /**
+       * Set clicked event to selected/unselected.
+       * @private
+       */
+      _toggleEvent: function(e) {
+
+        var entry = e.model.entry;
+        var nextEvent = this._getNextEvent(entry.events);
+        var selectedEvent = this._getSelectedEvent(entry.events);
+        var event = nextEvent || selectedEvent;
+        var index = this.events.indexOf(event);
+
+        // toggle
+        if (index > -1) {
+          this.set('events.' + index + '.selected', !event.selected);
+        }
+
+      }
+
+    });
+  })();
+  </script>
+
+</dom-module>
