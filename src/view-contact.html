@@ -33,10 +33,49 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 align-items: center;
       }
 
+      .contact-section {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-flex-wrap: nowrap;
+            -ms-flex-wrap: nowrap;
+                flex-wrap: nowrap;
+        -webkit-flex-direction: row;
+            -ms-flex-direction: row;
+                flex-direction: row;
+        -webkit-align-items: flex-start;
+                align-items: flex-start;
+      }
+
       a {
         text-decoration: none;
         color: var(--cardinal-red);
         line-height: 32px;
+      }
+
+      .contact__list {
+        padding: 0 2%;
+        margin: 0;
+        -webkit-box-sizing: border-box;
+           -moz-box-sizing: border-box;
+                box-sizing: border-box;
+        -webkit-flex: 1;
+            -ms-flex: 1;
+                flex: 1;
+      }
+
+      .contact__item {
+        list-style: none;
+      }
+
+      @media screen and (max-width: 660px) {
+        .contact-section {
+          width: 100%;
+          -webkit-flex-direction: column;
+              -ms-flex-direction: column;
+                  flex-direction: column;
+        }
       }
 
       @media screen and (max-width: 767px) {
@@ -56,17 +95,29 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <div class="card">
       <h1 class="card__headline">Contact</h1>
-      <h3>Email</h3>
-      <a href="mailto:herbtorres960@gmail.com" target="_blank">Herb Torres - herbtorres960@gmail.com</a>
-      <a href="mailto:bm.dev84@gmail.com" target="_blank">Brad Murphy - bm.dev84@gmail.com</a>
-      <h3>Phone</h3>
-      <a href="tel:6783531893">Herb: (678)353-1893</a>
-      <a href="tel:6783531893">Brad: (678)353-1893</a>
-      <h3>Rec & Ed Links</h3>
-      <a href="http://www.a2schools.org/reced" target="_blank">Website: www.aareced.com</a>
-      <a href="tell:7349942300">Weather Hotline: (734)994-2300 ext. 53115</a>
-      <a href="tel:7349942300">Kaite McCoy (734)994-2300 ext. 53230</a>
-      <a href="mailto:Mccoyk@aaps.k12.mi.us">Kaite McCoy email</a>
+      
+      <div class="contact-section">
+        <ul class="contact__list">
+          <li class="contact__item"><h3>Email</h3></li>
+          <li class="contact__item"><a href="mailto:herbtorres960@gmail.com" target="_blank">Herb Torres - herbtorres960@gmail.com</a></li>
+          <li class="contact__item"><a href="mailto:bm.dev84@gmail.com" target="_blank">Brad Murphy - bm.dev84@gmail.com</a></li>
+        </ul>
+
+        <ul class="contact__list">
+          <li class="contact__item"><h3>Phone</h3></li>
+          <li class="contact__item"><a href="tel:6783531893">Herb: (678)353-1893</a></li>
+          <li class="contact__item"><a href="tel:6783531893">Brad: (678)353-1893</a></li>
+        </ul>
+
+        <ul class="contact__list">
+          <li class="contact__item"><h3>Rec & Ed Links</h3></li>
+          <li class="contact__item"><a href="http://www.a2schools.org/reced" target="_blank">Website: www.aareced.com</a></li>
+          <li class="contact__item"><a href="tell:7349942300">Weather Hotline: (734)994-2300 ext. 53115</a></li>
+          <li class="contact__item"><a href="tel:7349942300">Kaite McCoy (734)994-2300 ext. 53230</a></li>
+          <li class="contact__item"><a href="mailto:Mccoyk@aaps.k12.mi.us">Kaite McCoy email</a></li>
+        </ul>
+      </div>   
+      
     </div>
   </template>
 
