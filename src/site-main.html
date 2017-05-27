@@ -67,10 +67,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         width: 100%;
         max-width: var(--max-site-width);
         margin: 0 auto;
-        padding: 0 16px;
+        padding: 0;
         -webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
         box-sizing: border-box;
+      }
+
+      .site__content {
+        max-width: 100%;
+      }
+
+      .site__header {
+        padding: 0 32px;
       }
 
       #drawer app-toolbar {
@@ -139,17 +147,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         font: 300 22px/32px var(--font-family-open-sans);
       }
 
-      .site-title {
-        width: 100%;
-        max-width: var(--max-site-width);
-        margin: 16px auto 0 auto;
-        padding: 0 52px;
-        text-align: right;
-        color: var(--cardinal-navy);
-        background: #FFF;
-        -webkit-box-sizing: border-box;
-           -moz-box-sizing: border-box;
-                box-sizing: border-box;
+      .header-text {
+        font: 300 12px/12px var(--font-family-poppins);
+        color: #fff
       }
 
       .header-top-logo {
@@ -157,18 +157,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: -webkit-flex;
         display: -ms-flexbox;
         display: flex;
-        -webkit-box-pack: flex-start;
-        -webkit-justify-content: flex-start;
-        -ms-flex-pack: flex-start;
-        justify-content: flex-start;
+        -webkit-align-items: center;
+                align-items: center;
         height: 100%;
+        text-indent: 16px;
       }
 
       .header__logo {
         height: 46px;
       }
 
-      @media screen and (min-width: 680px) {
+      @media screen and (max-width: 767px) {
+        .site__header {
+          padding: 0 16px;
+        }
+      }
+
+      @media screen and (min-width: 705px) {
         .header-top-logo {
           -webkit-box-align: center;
           -webkit-align-items: center;
@@ -178,7 +183,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       /* header links breakpoint */
-      @media screen and (max-width: 680px) {
+      @media screen and (max-width: 705px) {
         .icon--hamburger {
           display: block;
         }
@@ -191,23 +196,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           background: rgba(255, 255, 255, 0);
         }
 
-        .header-top-logo {
-          text-indent: 10px;
-        }
-
-        .header__logo {
-          position: relative;
-          top: 12px;
-          display: inline-block;
-          margin-right: 20px;
-        }
-
         .site__main-subheadline {
           font-size: 18px;
           line-height: 24px;
           width: 100%;
           max-width: 250px;
           margin: 0 auto;
+        }
+      }
+
+      @media screen and (max-width: 414px) {
+        .header-text {
+          font: 300 10px/10px var(--font-family-poppins);
+          color: #fff
+        }
+
+        .header__logo {
+          max-width: 80px;
+          height: auto;
         }
       }
     </style>
@@ -238,6 +244,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <app-toolbar class="site__header">
             <div class="header-top-logo" main-title>
               <img class="header__logo" src="../images/logo-cardinals.png">
+              <h1 class="header-text">2017 Rec &amp; Ed Summer League</h1>
             </div>
             <iron-selector selected="[[page]]" attr-for-selected="name" class="header-list" role="navigation">
               <a name="home" href="/home">Home</a>
@@ -248,8 +255,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <paper-icon-button class="icon--hamburger" icon="my-icons:menu" drawer-toggle></paper-icon-button>
           </app-toolbar>
         </app-header>
-
-        <h1 class="site-title">2017 Rec &amp; Ed Summer League</h1>
 
         <!-- Main site content -->
         <main class="site__content" id="siteContent">

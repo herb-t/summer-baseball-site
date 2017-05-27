@@ -16,26 +16,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <style>
 
       .card {
-        padding: 16px;
         color: #757575;
-        margin-bottom: 35px;
-      }
-
-      .cardinal-bg {
-        background: url('../../images/background-cardinals.png') no-repeat 50% 0%;
-        background-size: cover;
-      }
-
-      .circle {
-        display: inline-block;
-        width: 64px;
-        height: 64px;
-        text-align: center;
-        color: #555;
-        border-radius: 50%;
-        background: #ddd;
-        font-size: 30px;
-        line-height: 64px;
+        padding: 32px;
+        width: 100%;
+        max-width: var(--max-site-width);
+        margin: 0 auto 35px auto;
+        -webkit-box-sizing: border-box;
+           -moz-box-sizing: border-box;
+                box-sizing: border-box;
       }
 
       .card__headline {
@@ -43,6 +31,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         text-align: center;
         color: var(--cardinal-navy);
       }
+
+      @media screen and (max-width: 767px) {
+        .card {
+          padding: 16px;
+        }
+      }
+
 
       @media screen and (max-width: 680px) {
         .card__headline {
