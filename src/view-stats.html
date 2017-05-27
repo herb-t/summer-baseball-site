@@ -111,24 +111,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       <ul class="stat-box stat-box-header">
         <li class="stat-item item--head">Player</li>
-        <li class="stat-item item--head">At Bats</li>
-        <li class="stat-item item--head">Hits</li>
-        <li class="stat-item item--head">BA</li>
-        <li class="stat-item item--head">At Bats</li>
-        <li class="stat-item item--head">Hits</li>
-        <li class="stat-item item--head">BA</li>
+        <li class="stat-item item--head">AB</li>
+        <li class="stat-item item--head">R</li>
+        <li class="stat-item item--head">H</li>
+        <li class="stat-item item--head">2B</li>
+        <li class="stat-item item--head">3B</li>
+        <li class="stat-item item--head">RBI</li>
+        <li class="stat-item item--head">AVG</li>
       </ul>
 
       <template is="dom-repeat" items="{{response}}" as="player" class="stats-container">
 
         <ul class="stat-box">
           <li class="stat-item item--player">[[player.name]]</li>
-          <li class="stat-item">[[player.atBats]]</li>
-          <li class="stat-item">[[player.hits]]</li>
-          <li class="stat-item">[[player.ba]]</li>
-          <li class="stat-item">[[player.atBats]]</li>
-          <li class="stat-item">[[player.hits]]</li>
-          <li class="stat-item">[[player.ba]]</li>
+          <li class="stat-item">[[player.ab]]</li>
+          <li class="stat-item">[[player.r]]</li>
+          <li class="stat-item">[[player.h]]</li>
+          <li class="stat-item">[[player.2b]]</li>
+          <li class="stat-item">[[player.3b]]</li>
+          <li class="stat-item">[[player.rbi]]</li>
+          <li class="stat-item">[[player.avg]]</li>
         </ul>
 
       </template>
