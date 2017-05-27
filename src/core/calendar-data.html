@@ -173,7 +173,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
        */
       _processResponseItem: function(item) {
 
-        if (!item.start.date || !item.end.date) {
+        if (!item.start.dateTime || !item.end.dateTime) {
           return;
         }
 
@@ -183,8 +183,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         event.location = item.location ? item.location : 'No location available.';
         event.desc = item.description ? item.description : 'No description available.';
 
-        var startDate = new Date(item.start.date);
-        var endDate = new Date(item.end.date);
+        var startDate = new Date(item.start.dateTime);
+        var endDate = new Date(item.end.dateTime);
 
         event.start = {
           date: startDate,
