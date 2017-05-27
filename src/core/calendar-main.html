@@ -182,8 +182,8 @@ Custom property | Description | Default
                 box-sizing: border-box;
         position: relative;
         margin-bottom: 4px;
-        -webkit-box-shadow: var(--calendar-entry-border);
-                box-shadow: var(--calendar-entry-border);
+        /*-webkit-box-shadow: var(--calendar-entry-border);
+                box-shadow: var(--calendar-entry-border);*/
         -webkit-transition: all 0.3s cubic-bezier(.25,.8,.25,1);
            -moz-transition: all 0.3s cubic-bezier(.25,.8,.25,1);
             -ms-transition: all 0.3s cubic-bezier(.25,.8,.25,1);
@@ -204,7 +204,7 @@ Custom property | Description | Default
         z-index: 1;
       }
 
-      .event-present {
+      .event-present .text{
         cursor: pointer;
         background: var(--calendar-event-color);
         color: var(--calendar-event-font-color);
@@ -217,9 +217,14 @@ Custom property | Description | Default
       }
 
       .event-present:hover {
-        background: var(--calendar-event-color-hover);
+        cursor: pointer;
+        /*background: var(--calendar-event-color-hover);
         -webkit-box-shadow: var(--calendar-entry-border-hover);
-                box-shadow: var(--calendar-entry-border-hover);
+                box-shadow: var(--calendar-entry-border-hover);*/
+      }
+
+      .event-present:hover .text {
+        background: var(--calendar-event-color-hover);
       }
 
       .event-summaries {
@@ -388,6 +393,13 @@ Custom property | Description | Default
         #header .title {
           min-width: 124px;
           padding: 0 10px 20px 10px;
+        }
+      }
+
+      @media screen and (max-width: 340px) {
+        .entry .text {
+          -webkit-border-radius: 0;
+                  border-radius: 0;
         }
       }
 
