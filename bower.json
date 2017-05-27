@@ -9,6 +9,7 @@
     "app-route": "PolymerElements/app-route#^0.9.0",
     "iron-flex-layout": "PolymerElements/iron-flex-layout#^1.0.0",
     "iron-icon": "PolymerElements/iron-icon#^1.0.0",
+    "iron-icons": "PolymerElements/iron-icons#^1.0.0",
     "iron-iconset-svg": "PolymerElements/iron-iconset-svg#^1.0.0",
     "iron-localstorage": "PolymerElements/iron-localstorage#^1.0.0",
     "iron-media-query": "PolymerElements/iron-media-query#^1.0.0",
@@ -20,6 +21,7 @@
     "polymer": "Polymer/polymer#^1.6.0",
     "google-apis": "GoogleWebComponents/google-apis#^1.1.6",
     "instafeed.js": "stevenschobert/instafeed.js#^1.4.1"
+    
   },
   "devDependencies": {
     "web-component-tester": "^4.0.0"

@@ -1,0 +1,373 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/paper-spinner/paper-spinner-lite.html">
+<link rel="import" href="./date-behavior.html">
+<link rel="import" href="./calendar-data.html">
+<link rel="import" href="./calendar-widget.html">
+
+
+<!--
+`<calendar-events>` is an element for displaying the calendar widget, data and events.
+
+### Example:
+
+    <calendar-events></calendar-events>
+
+@element calendar-events
+@demo demo/index.html
+-->
+
+<dom-module id="calendar-events">
+  <template>
+
+    <style>
+
+      /* Base styles */
+
+      :host {
+        display: block;
+        font-family: 'Roboto', Arial , sans-serif;
+        font-size: 14px;
+        line-height: 29px;
+        color: #1a1a1a;
+        background: #f5f5f5;
+      }
+
+      #wrapper {
+        border-bottom: 1px solid #f5f5f5;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        margin: 0 auto;
+        max-width: 1170px;
+      }
+
+      #calendar {
+        border-right: 1px solid #f5f5f5;
+        padding: 24px 60px 24px 0;
+        width: 370px;
+      }
+
+      #events {
+        min-height: 500px;
+        padding: 24px 0 24px 24px;
+        position: relative;
+        -webkit-box-flex: 1;
+        -webkit-flex: 1 1 0%;
+        -ms-flex: 1 1 0%;
+         flex: 1 1 0%;
+      }
+
+      /* Event styles */
+
+      .event h1 {
+        font-size: 28px;
+        line-height: 36px;
+        font-weight: 300;
+      }
+
+      .date {
+        text-align: right;
+        font-size: 14px;
+        line-height: 29px;
+        font-weight: 400;
+      }
+
+      .desc {
+        font-size: 18px;
+        line-height: 32px;
+      }
+
+      .event .more {
+        max-height: 0;
+        overflow: hidden;
+      }
+
+      .event.selected .more {
+        max-height: 1000px;
+        -webkit-transition: max-height 0.2s;
+        transition: max-height 0.2s;
+      }
+
+      .event.selected .expand {
+        display: none;
+      }
+
+      .event .collapse {
+        display: none;
+      }
+
+      .event.selected .collapse {
+        display: block;
+      }
+
+      .event {
+        position: relative;
+        padding: 10px 20px;
+        background: #fff;
+        margin-bottom: 30px;
+        cursor: pointer;
+      }
+
+      .more {
+        border-top: 1px solid #ff0050;
+        box-sizing: border-box;
+      }
+
+      /* Extra UI styles */
+
+      .icon {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        --iron-icon-width: 30px;
+        --iron-icon-height: 30px;
+        --iron-icon-fill-color: #ff0050;
+      }
+
+      #spinner {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        --paper-spinner-color: #ff0050;
+      }
+
+      .message {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 18px;
+        line-height: 32px;
+        text-transform: uppercase;
+        font-weight: 500;
+      }
+
+      /* Mobile styles */
+
+      @media screen and (max-width: 1250px) {
+
+        #wrapper {
+          margin: 0 auto;
+          max-width: 370px;
+          flex-direction: column;
+          flex-wrap: wrap;
+        }
+
+        #calendar {
+          width: 100%;
+          padding: 24px 0;
+        }
+
+        #events {
+         padding: 24px 0;
+         width: 100%;
+        }
+
+      }
+
+      @media screen and (max-width: 370px) {
+
+        #wrapper {
+          margin: 0 14px;
+        }
+
+      }
+
+    </style>
+
+    <!-- calendar data element -->
+
+    <calendar-data
+    api-key="AIzaSyABqAomiqQpSkpghtfc2L2yOKQswvmT31w"
+    calendar-id="t1b1jlqqjc2336t8jdp6bfma8k@group.calendar.google.com"
+    date-min="[[dateMin]]"
+    events="{{events}}"
+    loaded="{{eventsLoaded}}">
+    </calendar-data>
+
+    <div id="wrapper">
+
+      <!-- calendar element -->
+
+      <div id="calendar">
+        <calendar-widget class="calendar"
+          current-date="[[dateMin]]"
+          events="{{events}}"
+          current-month="{{selectedMonth}}">
+        </calendar-widget>
+      </div>
+
+      <!-- events container -->
+
+      <div id="events">
+
+        <!-- events template -->
+
+        <template is="dom-if" if="[[!zeroEvents]]">
+          <template is="dom-repeat" items="{{events}}" filter="[[eventsFilter]]" sort="_sortByStartDate">
+
+            <article class$="event [[_getSelectedClass(item.selected)]]" on-tap="_toggleEvent">
+              <header>
+                <h1 class="title">[[item.title]]</h1>
+                <iron-icon icon="icons:expand-more" class="icon expand"></iron-icon>
+                <iron-icon icon="icons:expand-less" class="icon collapse"></iron-icon>
+              </header>
+              <div class="more">
+                <h2 class="date">[[_formatDate(item)]]</h2>
+                <p class="desc">[[item.desc]]</span>
+              </div>
+            </article>
+
+          </template>
+        </template>
+
+        <!-- zero events template -->
+
+        <template is="dom-if" if="[[zeroEvents]]">
+          <div class="message">
+            No events
+          </div>
+        </template>
+
+        <!-- loading icon -->
+
+        <paper-spinner-lite id="spinner" active="[[!eventsLoaded]]"></paper-spinner-lite>
+
+      </div>
+
+    </div>
+
+
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'calendar-events',
+
+      behaviors: [DateBehaviors.EventsBehavior],
+
+      properties: {
+        /**
+         * Current date
+         */
+        dateMin: {
+         type: Date,
+         value: function() {
+           return new Date();
+         }
+        },
+        /**
+         * Array that holds all of the events.
+         */
+        events: {
+          type: Array,
+          notify: true
+        },
+        /**
+         * Boolean to check the loaded status.
+         */
+        eventsLoaded: Boolean,
+        /**
+         * Filter events by month.
+         */
+        eventsFilter: {
+          type: Function,
+          computed: '_computeEventsFilter(selectedMonth)'
+        },
+        /**
+         * Selected month
+         */
+        selectedMonth: {
+          type: String,
+          value: ''
+        },
+        /**
+         * Check if there are zero events.
+         */
+        zeroEvents: {
+          type: Boolean,
+          computed: '_computeZeroEvents(events, eventsLoaded, eventsFilter)'
+        }
+      },
+
+      /**
+       * Return selected class for selected items.
+       * @private
+       */
+      _getSelectedClass: function(selected) {
+
+        return selected ? 'selected' : '';
+
+      },
+
+      /**
+       * Toggle the current selected event.
+       * @private
+       */
+      _toggleEvent: function(e) {
+
+        var event = e.model.item;
+        var index = this.events.indexOf(event);
+        this.set('events.' + index + '.selected', !event.selected);
+
+      },
+
+      /**
+       * Sort events by date.
+       * @private
+       */
+      _sortByStartDate: function(a, b) {
+
+        var dateA = a.start.date;
+        var dateB = b.start.date;
+        return dateA === dateB ? 0 : dateA > dateB ? 1 : -1;
+
+      },
+
+      /**
+       * Filter events visible by month.
+       * @private
+       */
+      _computeEventsFilter: function(month) {
+
+        return function(event, index) {
+
+          var index = this.events.indexOf(event);
+          var isMonth = month === event.start.monthText;
+          var isVisible = isMonth;
+
+          this.set('events.' + index + '.visible', isVisible);
+
+          return isVisible;
+
+        }.bind(this);
+
+      },
+
+      /**
+       * Check if events loaded and if there are events.
+       * @private
+       */
+      _computeZeroEvents: function(events, eventsLoaded, eventsFilter) {
+
+        return eventsLoaded && events.length > 0 && events.filter(eventsFilter).length === 0;
+
+      },
+
+      /**
+       * Format date from event data.
+       * @private
+       */
+      _formatDate: function(item) {
+
+        return item.start.dateText === item.end.dateText ? this._getSingleDateString(item.start.date, 'en', 'ltr') : this._getMultipleMonthDateString(item.start.date, item.end.date, 'en', 'ltr');
+
+      }
+
+    });
+  </script>
+</dom-module>
