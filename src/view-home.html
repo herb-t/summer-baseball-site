@@ -10,6 +10,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<script type="text/javascript" src="../bower_components/instafeed.js/instafeed.min.js"></script>
 <link rel="import" href="styles/shared-styles.html">
 
 <dom-module id="view-home">
@@ -26,20 +27,41 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         max-width: 100%;
         height: auto;
       }
+
+      .instagram__feed {
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        -ms-align-items: center;
+        -webkit-align-items: center;
+        align-items: center;
+        -ms-flex-pack: justify;
+        -webkit-justify-content: space-between;
+        justify-content: space-between;
+        -webkit-flex-direction: row;
+        -moz-flex-direction: row;
+        -ms-flex-direction: row;
+        -o-flex-direction: row;
+        flex-direction: row;
+      }
+
+      .instagram__photo {
+        width: 24%;
+      }
     </style>
-    <!-- TODO: get instagram api working -->
-    <iron-ajax
-        auto
-        url="https://api.instagram.com/v1/users/self/media/recent/?access_token=1822534752.6430ac4.5b58c8d97ae24db1b4860bc2b9b4cf78"
-        handle-as="json"
-        last-response="{{response}}"
-        on-response="_onResponse"
-        debounce-duration="300">
-    </iron-ajax>
 
     <div class="card">
       <img class="hero" src="../images/hero.jpg" alt="hero">
+      <div class="instagram__feed">
+        <template is="dom-repeat" items="{{responseData}}" as="picture">
+          <img src="{{picture.images.standard_resolution.url}}" class="instagram__photo" alt="Cardinals 2017">
+        </template>
+      </div>
     </div>
+
   </template>
 
   <script>
@@ -47,18 +69,32 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       is: 'view-home',
 
       properties: {
-        response: {
+        responseData: {
           type: Array,
-          notify: true
+          value: function() {return [];}
         }
       },
 
       ready: function() {
-        // console.log('Homepage up!');
+        var feed = new Instafeed({
+          get: 'user',
+          userId: '1822534752',
+          accessToken: '1822534752.6430ac4.5b58c8d97ae24db1b4860bc2b9b4cf78',
+          mock: true,
+          success: function(obj) {
+            this._setupResponseData(obj.data);
+          }.bind(this)
+        }).run();
       },
 
-      _onResponse: function() {
-        console.log(this.response)
+      _setupResponseData(data) {
+        var tagged = data.filter(function(picture) {
+          var boolean = picture.tags.some(function(tag) {
+            return tag === 'dags'
+          });
+          return boolean === true;
+        });
+        this.responseData = tagged;
       }
     });
   </script>

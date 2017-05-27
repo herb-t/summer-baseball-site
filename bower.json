@@ -18,7 +18,8 @@
     "iron-ajax": "PolymerElements/iron-ajax#^1.4.3",
     "paper-elements": "PolymerElements/paper-elements#^1.0.1",
     "polymer": "Polymer/polymer#^1.6.0",
-    "google-apis": "GoogleWebComponents/google-apis#^1.1.6"
+    "google-apis": "GoogleWebComponents/google-apis#^1.1.6",
+    "instafeed.js": "stevenschobert/instafeed.js#^1.4.1"
   },
   "devDependencies": {
     "web-component-tester": "^4.0.0"
