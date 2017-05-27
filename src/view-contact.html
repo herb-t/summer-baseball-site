@@ -9,6 +9,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-icons/communication-icons.html">
 <link rel="import" href="styles/shared-styles.html">
 
 <dom-module id="view-contact">
@@ -22,72 +23,84 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       .card {
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-flex-direction: column;
-            -ms-flex-direction: column;
-                flex-direction: column;
-        -webkit-align-items: center;
-                align-items: center;
-      }
 
-      .contact-section {
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-flex-wrap: nowrap;
-            -ms-flex-wrap: nowrap;
-                flex-wrap: nowrap;
-        -webkit-flex-direction: row;
-            -ms-flex-direction: row;
-                flex-direction: row;
-        -webkit-align-items: flex-start;
-                align-items: flex-start;
       }
 
       a {
         text-decoration: none;
-        color: var(--cardinal-red);
-        line-height: 32px;
       }
 
-      .contact__list {
-        padding: 0 2%;
-        margin: 0;
-        -webkit-box-sizing: border-box;
-           -moz-box-sizing: border-box;
-                box-sizing: border-box;
+      .contact-grid {
+        display: flex;
+        -webkit-flex-direction: column;
+            -ms-flex-direction: column;
+                flex-direction: column;
+      }
+
+      .grid__row {
+        list-style: none;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-flex-wrap: nowrap;
+            -ms-flex-wrap: nowrap;
+                flex-wrap: nowrap;
+        -webkit-align-items: center;
+                align-items: center;
+        -webkit-justify-content: center;
+                justify-content: center;
+        
+      }
+
+      .grid__row-divider {
+        border-bottom: 1px solid #ccc;
+        margin: 20px 0;
+      }
+        
+
+      .grid__item {
+        position: relative;
+        overflow: hidden;
+        list-style: none;
+        font: 300 12px/18px var(--font-family-poppins);
+        font-size: 12px;
+        line-height: 18px;
+        padding: 0 1%;
+        color: var(--cardinal-navy);
         -webkit-flex: 1;
             -ms-flex: 1;
                 flex: 1;
       }
 
-      .contact__item {
-        list-style: none;
+      .item__link {
+        font: 300 12px/18px var(--font-family-open-sans);
+        color: var(--cardinal-red);
       }
 
-      @media screen and (max-width: 660px) {
-        .contact-section {
-          width: 100%;
-          -webkit-flex-direction: column;
-              -ms-flex-direction: column;
-                  flex-direction: column;
+      .item--headline {
+        font-size: 14px;
+        line-height: 22px;
+        font-weight: 700;
+        color: var(--cardinal-navy);
+        letter-spacing: 1px;      
+      }
+
+      .item--desktop {
+        display: block;
+      }
+
+      .item--mobile {
+        display: none;
+      }
+
+      @media screen and (max-width: 786px) {
+        .item--desktop {
+          display: none;
         }
-      }
 
-      @media screen and (max-width: 767px) {
-        a {
-          font-size: 14px;
-        }
-      }
-
-      @media screen and (max-width: 480px) {
-        .card {
-          -webkit-align-items: flex-start;
-                  align-items: flex-start;
+        .item--mobile {
+          display: block;
         }
       }
 
@@ -95,28 +108,51 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <div class="card">
       <h1 class="card__headline">Contact</h1>
-      
-      <div class="contact-section">
-        <ul class="contact__list">
-          <li class="contact__item"><h3>Email</h3></li>
-          <li class="contact__item"><a href="mailto:herbtorres960@gmail.com" target="_blank">Herb Torres - herbtorres960@gmail.com</a></li>
-          <li class="contact__item"><a href="mailto:bm.dev84@gmail.com" target="_blank">Brad Murphy - bm.dev84@gmail.com</a></li>
+
+      <div class="contact-grid">
+        
+        <ul class="grid__row">
+          <li class="grid__item"></li>
+          <li class="grid__item">Phone</li>
+          <li class="grid__item">Ext</li>
+          <li class="grid__item">Email</li>
+          <li class="grid__item">Website</li>
         </ul>
 
-        <ul class="contact__list">
-          <li class="contact__item"><h3>Phone</h3></li>
-          <li class="contact__item"><a href="tel:6783531893">Herb: (678)353-1893</a></li>
-          <li class="contact__item"><a href="tel:6783531893">Brad: (678)353-1893</a></li>
-        </ul>
+        <template is="dom-repeat" items="{{contacts}}">
+          <ul class="grid__row">
+            <li class="grid__item">[[item.name]]</li>
+            <li class="grid__item">
+              <template is="dom-if" if="[[item.hasPhone]]">
+                <a class="item__link item--desktop" href="tel:[[item.phone_link]]">[[item.phone_text]]</a>
+                <a class="item__link item--mobile" href="tel:[[item.phone_link]]">               
+                  <iron-icon icon="communication:phone" class="list__icon item--mobile"></iron-icon>
+                </a>
+              </template>
+            </li>
+            <li class="grid__item">[[item.ext]]</li>
+            <li class="grid__item">
+              <template is="dom-if" if="[[item.hasEmail]]">
+                <a class="item__link item--desktop" href="mailto:[[item.email__link]]" target="_blank">[[item.email__link]]</a>
+                <a class="item__link item--mobile" href="mailto:[[item.email__link]]" target="_blank">
+                  <iron-icon icon="communication:email" class="list__icon item--mobile"></iron-icon>    
+                </a>
+              </template>
+            </li>         
+            <li class="grid__item">
+              <template is="dom-if" if="[[item.hasWeb]]">
+                <a class="item__link item--desktop" href="[[item.web_link]]" target="_blank">[[item.web__text]]</a>
+                <a class="item__link item--mobile" href="[[item.web__link]]" target="_blank">
+                  <iron-icon icon="communication:stay-primary-landscape" class="list__icon item--mobile"></iron-icon>
+                </a>
+              </template>
+            </li>
+          </ul>
 
-        <ul class="contact__list">
-          <li class="contact__item"><h3>Rec & Ed Links</h3></li>
-          <li class="contact__item"><a href="http://www.a2schools.org/reced" target="_blank">Website: www.aareced.com</a></li>
-          <li class="contact__item"><a href="tell:7349942300">Weather Hotline: (734)994-2300 ext. 53115</a></li>
-          <li class="contact__item"><a href="tel:7349942300">Kaite McCoy (734)994-2300 ext. 53230</a></li>
-          <li class="contact__item"><a href="mailto:Mccoyk@aaps.k12.mi.us">Kaite McCoy email</a></li>
-        </ul>
-      </div>   
+          <div class="grid__row-divider"></div>
+        </template>
+
+      </div>
       
     </div>
   </template>
@@ -125,8 +161,100 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     Polymer({
       is: 'view-contact',
 
-      ready: function() {
+      properties: {
+        contacts: {
+          type: Array,
+          notify: true
+        }
+      },
 
+      ready: function() {
+        this.contacts = [
+          {
+            'name': 'Herb Torres',
+            'hasPhone': true,
+            'phone_link': '6783531893',
+            'phone__text': '(678)353-1893',
+            'ext': '',
+            'hasEmail': true,
+            'email__link': 'herbtorres960@gmail.com',
+            'hasWeb': false,
+            'web__link': '',
+            'web__text': ''
+          },
+          {
+            'name': 'Brad Murphy',
+            'hasPhone': true,
+            'phone_link': '4044323796',
+            'phone__text': '(404)432-3796',
+            'ext': '',
+            'hasEmail': true,
+            'email__link': 'bm.dev84@gmail.com',
+            'hasWeb': false,
+            'web__link': '',
+            'web__text': ''
+          },
+          {
+            'name': 'Weather Hotline',
+            'hasPhone': true,
+            'phone_link': '7349942300',
+            'phone__text': '(734)994-2300',
+            'ext': '53115',
+            'hasEmail': false,
+            'email__link': '',
+            'hasWeb': true,
+            'web__link': 'http://www.a2schools.org/reced',
+            'web__text': 'a2schools.org'
+          },
+          {
+            'name': 'Kaite McCoy',
+            'hasPhone': true,
+            'phone_link': '(734)994-2300',
+            'phone__text': '7349942300',
+            'ext': '53230',
+            'hasEmail': true,
+            'email__link': 'Mccoyk@aaps.k12.mi.us',
+            'hasWeb': false,
+            'web__link': '',
+            'web__text': ''
+          },
+          {
+            'name': 'Elyse Bairley',
+            'hasPhone': false,
+            'phone_link': '',
+            'phone__text': '',
+            'ext': '',
+            'hasEmail': true,
+            'email__link': 'bairley@aaps.k12.mi.us',
+            'hasWeb': false,
+            'web__link': '',
+            'web__text': ''
+          },
+          {
+            'name': 'Rules full',
+            'hasPhone': false,
+            'phone_link': '',
+            'phone__text': '',
+            'ext': '',
+            'hasEmail': false,
+            'email__link': '',
+            'hasWeb': true,
+            'web__link': 'http://www.a2schools.org/cms/lib8/MI01907933/Centricity/Domain/1359/Rules%2017.pdf',
+            'web__text': 'view PDF'
+          },
+          {
+            'name': 'Rules cheatsheet',
+            'hasPhone': false,
+            'phone_link': '',
+            'phone__text': '',
+            'ext': '',
+            'hasEmail': false,
+            'email__link': '',
+            'hasWeb': true,
+            'web__link': 'http://www.a2schools.org/cms/lib8/MI01907933/Centricity/Domain/1359/Rules%20Cheat17.pdf',
+            'web__text': 'view PDF'
+          }
+        ]
       }
     });
   </script>
