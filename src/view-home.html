@@ -49,7 +49,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       .instagram__photo {
-        width: 24%;
+        width: 22%;
+        border: none;
+      }
+
+      .instagram__photo img {
+        width: 100%;
       }
     </style>
 
@@ -57,7 +62,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <img class="hero" src="../images/hero.jpg" alt="hero">
       <div class="instagram__feed">
         <template is="dom-repeat" items="{{responseData}}" as="picture">
-          <img src="{{picture.images.standard_resolution.url}}" class="instagram__photo" alt="Cardinals 2017">
+          <a href="{{picture.link}}" class="instagram__photo" target="_blank">
+            <img src="{{picture.images.standard_resolution.url}}" alt="Cardinals 2017">
+          </a>
         </template>
       </div>
     </div>
