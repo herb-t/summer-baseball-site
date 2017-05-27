@@ -88,6 +88,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       .instagram__photo {
         width: 23.5%;
         margin: 0 2% 20px 0;
+        border: 2px solid var(--cardinal-red);
+        box-sizing: border-box;
       }
 
       .instagram__photo:nth-of-type(n + 4) {
@@ -98,6 +100,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         width: 100%;
         max-width: 100%;
         height: auto;
+      }
+
+      .navy {
+        background: var(--cardinal-navy);
       }
 
       @media screen and (max-width: 900px) {
@@ -135,21 +141,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div class="hero-header"></div>
     </div>
 
-    <div class="card">
-      <svg class="instagram-icon" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve">
-        <g id="instagram">
-          <path class="instagram__fill" d="M21.8,20.7c0,0.4-0.4,0.7-0.8,0.7H3c-0.4,0-0.7-0.3-0.8-0.7V9.8h3c-0.4,0.7-0.6,1.4-0.5,2.2c0.1,4,3.5,7.2,7.6,7
-            c3.8-0.1,6.9-3.2,7-7c0.1-0.8-0.1-1.5-0.6-2.2h3L21.8,20.7L21.8,20.7z M12,7.6c2.4,0.1,4.4,2.2,4.3,4.6s-2.2,4.4-4.6,4.3
-            c-2.4-0.1-4.3-2-4.3-4.4C7.5,9.5,9.5,7.5,12,7.6z M17.3,4.1c0-0.4,0.3-0.7,0.7-0.7h2.2c0.4,0,0.7,0.3,0.7,0.7v2.2
-            c0,0.4-0.3,0.7-0.7,0.7H18c-0.4,0-0.7-0.3-0.7-0.7V4.1z M21.1,0.4H2.9C1.3,0.4,0,1.6,0,3.2v17.6c0,1.5,1.3,2.8,2.9,2.7h18.3
-            c1.5,0,2.8-1.2,2.9-2.7c0,0,0,0,0,0V3.2C24,1.6,22.7,0.4,21.1,0.4C21.2,0.4,21.1,0.4,21.1,0.4z M21.8,20.7c0,0.4-0.4,0.7-0.8,0.7H3
-            c-0.4,0-0.7-0.3-0.8-0.7V9.8h3c-0.4,0.7-0.6,1.4-0.5,2.2c0.1,4,3.5,7.2,7.6,7c3.8-0.1,6.9-3.2,7-7c0.1-0.8-0.1-1.5-0.6-2.2h3
-            L21.8,20.7L21.8,20.7z M12,7.6c2.4,0.1,4.4,2.2,4.3,4.6c-0.1,2.4-2.2,4.4-4.6,4.3c-2.4-0.1-4.3-2-4.3-4.4C7.5,9.5,9.5,7.5,12,7.6
-            L12,7.6z M17.3,4.1c0-0.4,0.3-0.7,0.7-0.7h2.2c0.4,0,0.7,0.3,0.7,0.7v2.2c0,0.4-0.3,0.7-0.7,0.7H18c-0.4,0-0.7-0.3-0.7-0.7V4.1z
-             M21.1,0.4H2.9C1.3,0.4,0,1.6,0,3.2v17.6c0,1.5,1.3,2.8,2.9,2.7h18.3c1.5,0,2.8-1.2,2.9-2.7c0,0,0,0,0,0V3.2
-            C24,1.6,22.7,0.4,21.1,0.4C21.2,0.4,21.1,0.4,21.1,0.4L21.1,0.4z"/>
-        </g>
-      </svg>
+    <div class="card navy">
       <div class="instagram__feed">
         <template is="dom-repeat" items="{{responseData}}" as="picture">
           <a href="{{picture.link}}" class="instagram__photo" target="_blank">
@@ -158,6 +150,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </template>
       </div>
     </div>
+    
   </template>
 
   <script>
