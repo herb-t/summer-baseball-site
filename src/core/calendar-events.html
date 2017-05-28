@@ -217,7 +217,7 @@
 
             <article class$="event [[_getSelectedClass(item.selected)]]" on-tap="_toggleEvent">
               <header>
-                <h1 class="title">[[item.title]] | [[_formatDate(item)]] | [[item.start.time]] - [[item.end.time]]</h1>
+                <h1 class="title">[[item.title]] | [[_formatDate(item)]]</h1>
                 <iron-icon icon="icons:expand-more" class="icon expand"></iron-icon>
                 <iron-icon icon="icons:expand-less" class="icon collapse"></iron-icon>
               </header>
@@ -369,7 +369,11 @@
        */
       _formatDate: function(item) {
 
-        return item.start.dateText === item.end.dateText ? this._getSingleDateString(item.start.date, 'en', 'ltr') : this._getMultipleMonthDateString(item.start.date, item.end.date, 'en', 'ltr');
+        var times = item.start.time + ' - ' + item.end.time;
+
+        return item.start.dateText === item.end.dateText ?
+        this._getSingleDateString(item.start.date, 'en', 'ltr') + ' | ' + times :
+        this._getMultipleMonthDateString(item.start.date, item.end.date, 'en', 'ltr');
 
       }
 

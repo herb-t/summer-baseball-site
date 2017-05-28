@@ -149,8 +149,20 @@ DateBehaviors.EventsBehavior = {
       var minutes = time.replace(/^[0-9]{2}/g, '');
       var hours = time.replace(/:+.*/g, '');
       hours = parseInt(hours, 10);
-      minutes = hours > 12 ? minutes + 'PM' : minutes + 'AM';
-      hours = (hours - 12) === 0 ? 12 : hours - 12;
+
+      if(hours < 12) {
+        minutes = minutes + 'AM'
+      } else if(hours >= 12) {
+        minutes = minutes + 'PM'
+      }
+
+      if(hours > 12) {
+        hours = (hours - 16) === 0 ? 12 : (hours - 16);
+        console.log(hours);
+      } else if(hours === 0) {
+        hours = 12;
+      }
+
       return hours + minutes;
     }
   },
