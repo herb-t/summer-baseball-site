@@ -147,13 +147,7 @@ DateBehaviors.EventsBehavior = {
    */
   _getDisplayTimeString: function(date) {
     if(date) {
-      var options = {
-        hour12: true,
-        timeZone: 'America/New_York',
-        formatMatcher: 'best fit'
-      }
-
-      var time = date.toLocaleTimeString('en-US', options);
+      var time = date.toLocaleTimeString('en-US');
       time = time.replace(/:.*?(:)/g, ':');
 
       return time;
