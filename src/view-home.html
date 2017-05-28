@@ -178,7 +178,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         responseData: {
           type: Array,
           value: function() {return [];}
-        }
+        },
+        /**
+         * Array that holds all of the events.
+         */
+        events: {
+          type: Array,
+          notify: true
+        },
+        /**
+         * Boolean to check the loaded status.
+         */
+        loaded: Boolean
       },
 
       ready: function() {

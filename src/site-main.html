@@ -21,6 +21,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="core/my-icons.html">
+<link rel="import" href="core/calendar-data.html">
 <link rel="import" href="styles/reset.html">
 
 <dom-module id="site-main">
@@ -235,6 +236,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     </style>
 
+    <calendar-data
+    api-key="AIzaSyABqAomiqQpSkpghtfc2L2yOKQswvmT31w"
+    calendar-id="t1b1jlqqjc2336t8jdp6bfma8k@group.calendar.google.com"
+    date-min="[[dateMin]]"
+    events="{{events}}"
+    loaded="{{eventsLoaded}}">
+    </calendar-data>
+
     <app-location route="{{route}}"></app-location>
     <app-route
         route="{{route}}"
@@ -282,8 +291,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               attr-for-selected="name"
               fallback-selection="404"
               role="main">
-            <view-home name="home"></view-home>
-            <view-calendar name="calendar"></view-calendar>
+            <view-home name="home" events="{{events}}" loaded="{{eventsLoaded}}"></view-home>
+            <view-calendar name="calendar" events="{{events}}" loaded="{{eventsLoaded}}"></view-calendar>
             <view-stats name="stats"></view-stats>
             <view-contact name="contact"></view-contact>
             <view-404 name="404"></view-404>
@@ -304,6 +313,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           reflectToAttribute: true,
           observer: '_pageChanged',
         },
+        /**
+         * Current date
+         */
+        dateMin: {
+         type: Date,
+         value: function() {
+           return new Date();
+         }
+        },
+        /**
+         * Array that holds all of the events.
+         */
+        events: {
+          type: Array,
+          notify: true
+        },
+        /**
+         * Boolean to check the loaded status.
+         */
+        eventsLoaded: Boolean
       },
 
       observers: [

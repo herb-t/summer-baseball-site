@@ -27,8 +27,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <div class="card">
       <h1 class="card__headline">Calendar</h1>
-
-      <calendar-events></calendar-events>
+      <calendar-events events="{{events}}" events-loaded="{{loaded}}"></calendar-events>
     </div>
 
   </template>
@@ -37,8 +36,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     Polymer({
       is: 'view-calendar',
 
-      ready: function() {
-
+      properties: {
+        /**
+         * Array that holds all of the events.
+         */
+        events: {
+          type: Array,
+          notify: true
+        },
+        /**
+         * Boolean to check the loaded status.
+         */
+        loaded: Boolean
       }
     });
   </script>
