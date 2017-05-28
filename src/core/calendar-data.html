@@ -9,40 +9,42 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-spinner/paper-spinner-lite.html">
 <link rel="import" href="../../bower_components/google-apis/google-client-loader.html">
-<link rel="import" href="./date-behavior.html">
+
 
 <!--
-`<calendar-data>` is an element for pulling google calendar data.
-
-### Example:
-
-    <calendar-data api-key="apiKey" calendar-id="calendarId"></calendar-data>
-
+`<calendar-data>` is a Polymer element that works with `<calendar-main>`.  `<calendar-data>` uses the google-client-loader element to process requests from the google calendar API.
+Example:
+    <calendar-data
+      api-key="{{apiKey}}" 
+      calendar-id="{{calendarId}}"
+      events="{{events}}" 
+      loaded="{{eventsLoaded}}">
+      
+    </calendar-data>
 @element calendar-data
+@demo demo/index.html
 -->
 
 <dom-module id="calendar-data">
 
   <template strip-whitespace>
 
-    <!-- client loader -->
-
     <google-client-loader id="calendar" name="calendar" version="v3"
-     on-google-api-load="_onLoad" on-google-api-load-error="_onError"></google-client-loader>
-
+      on-google-api-load="_onLoad" on-google-api-load-error="_onError"></google-client-loader>
+  
   </template>
 
   <script>
+  (function() {
+    'use strict';
     Polymer({
-
       is: 'calendar-data',
-
-      behaviors: [DateBehaviors.EventsBehavior],
-
       properties: {
         /**
-         * API key
+         * The apiKey of calendar.
+         * @see {@link https://developers.google.com/api-client-library/python/guide/aaa_apikeys|API keys}
          */
         apiKey: {
           type: String,
@@ -50,205 +52,117 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           reflectToAttribute: true
         },
         /**
-         * Calendar ID
+         * The id of calendar.
+         * @see {@link https://support.appmachine.com/hc/en-us/articles/203645966-Find-your-Google-Calendar-ID-for-the-Events-block|Find your calendar id.}
          */
         calendarId: {
           type: String,
           notify: true,
-          reflectToAttribute: true
+          value: null,
+          reflectToAttribute: true,
+          observer: '_calendarIdChanged'
         },
         /**
-         * Date
-         */
-        dateMin: {
-          type: Date
-        },
-        /**
-         * Array that holds all of the events.
+         * The Array of events that are found. You can listen for this property
+         * change or bind to it.
+         * @return Array{}
          */
         events: {
-          type: Array,
+          type:Array,
           notify: true,
           value: function() {
             return [];
           }
         },
         /**
-         * Loaded boolean
+         * Whether the request has been completed successfully.
+         * @return Boolean
          */
         loaded: {
-          type: Boolean,
+          type:Boolean,
           notify: true,
           value: false
         }
       },
-
       /**
-       * Observer for when events array changes.
+       * calls request()
        */
-      observers: [
-        '_eventsChanged(events.*)'
-      ],
-
+      _calendarIdChanged: function() {
+        this.request();
+      },
       /**
-       * On load callback
-       * @private
+       * calls request()
        */
       _onLoad: function() {
-
         this.request();
-
       },
-
       /**
-       * On error callback
-       * @private
+       * on error
        */
-      _onError: function(err) {},
-
+      _onError: function() {},
       /**
-       * Verify request and call processRequest.
-       * @private
+       * processes request method from calendar API
        */
       request: function() {
-
         if (this.$.calendar.api) {
-
           if (this.apiKey) {
             gapi.client.setApiKey(this.apiKey);
           }
-
           var params = {
             calendarId: this.calendarId,
             timeMin: (new Date()).toISOString()
           };
-
           var request = this.$.calendar.api.events.list(params);
-
           request.execute(function(response) {
             this.cancelDebouncer('calendarRequest');
-            this.set('loaded', true);
+            this.loaded = true;
             this._processResponse(response.items);
           }.bind(this), function(err){
-            this.set('loaded', true);
+            this.loaded = true;
             this.events = [];
           }.bind(this));
-
           this.debounce('calendarRequest', this._requestTimeout.bind(this), 5000);
-
         }
-
       },
-
       /**
-       * Timeout callback
-       * @private
+       * request timeout
        */
       _requestTimeout: function() {
-
-        this.set('loaded', true);
+        this.loaded = true;
         this.events = [];
-
       },
-
       /**
-       * Set up events array and push items into array.
-       * @private
+       * processes response
        */
       _processResponse: function(items) {
-
-        var processedEvents = items.map(function(item) {
-          return this._processResponseItem(item);
+        //process the description of each item and tokenize the variables found inside
+        var events = items.map(function(item) {
+          var event = this._processItemDescription(item);
+          return event;
         }, this);
-
-        var events = this.events;
-
-        this.set('events', events.concat(processedEvents));
-
+        // return only non-null events
+        this.events = events.filter(function(event) {
+          if (event && event.props) {
+            return true;
+          } else {
+            return false;
+          };
+        });
       },
-
       /**
-       * Create event object from response data.
-       * @private
+       * preocess event description
        */
-      _processResponseItem: function(item) {
-
-        if (!item.start.dateTime || !item.end.dateTime) {
-          return;
-        }
-
-        var event = {};
-        event.__event = item;
-        event.title = item.summary ? item.summary : 'No summary available.';
-        event.location = item.location ? item.location : 'No location available.';
-        event.desc = item.description ? item.description : 'No description available.';
-
-        var startDate = new Date(item.start.dateTime);
-        var endDate = new Date(item.end.dateTime);
-
-        event.start = {
-          date: startDate,
-          dateText: this._getDateDayString(startDate),
-          monthText: this._getDateMonthString(startDate),
-          time: this._getDisplayTimeString(startDate)
-        };
-
-        event.end = {
-          date: endDate,
-          dateText: this._getDateDayString(endDate),
-          monthText: this._getDateMonthString(endDate),
-          time: this._getDisplayTimeString(endDate)
-        };
-
-        return event;
-
-      },
-
-      /**
-       * If an event was selected, deselect the others.
-       * @private
-       */
-      _eventsChanged: function(cr) {
-
-        var events = cr.base;
-        var path = cr.path;
-        var value = cr.value;
-
-        this._onlyOneTrueValue(events, path, value, 'selected');
-
-        var visibleIndex = path.indexOf('.visible');
-
-        if (visibleIndex > -1 && value === false) {
-          events.map(function(event, index) {
-            this.set('events.' + index + '.selected', false);
-          }, this);
-        }
-
-      },
-
-      /**
-       * Only allow one event with a true value for the property.
-       * @private
-       */
-      _onlyOneTrueValue: function(events, path, value, keyname) {
-
-        var index = path.indexOf('.' + keyname);
-
-        if (index > -1 && value === true) {
-          var itempath = path.substring(0, index);
-          var item = this.get(itempath);
-          var index = events.indexOf(item);
-
-          events.map(function(event, index) {
-            if (event !== item) {
-              this.set('events.' + index + '.' + keyname, false);
-            }
-          }, this);
-        }
-
+      _processItemDescription: function(item) {
+        var description = item.description;
+        var parser = new DOMParser();
+        var doc = parser.parseFromString(description, 'application/xml');
+        var props = {};
+        item.props = props;
+        item.doc = doc;
+        return item;
       }
-
+      // end
     });
+  })();
   </script>
-
 </dom-module>

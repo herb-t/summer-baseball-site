@@ -9,7 +9,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="core/calendar-events.html">
+<link rel="import" href="core/calendar-main.html">
 <link rel="import" href="styles/shared-styles.html">
 
 <dom-module id="view-calendar">
@@ -28,7 +28,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <div class="card">
       <h1 class="card__headline">Calendar</h1>
 
-      <calendar-events></calendar-events>
+      <calendar-main
+
+        api-key="AIzaSyABqAomiqQpSkpghtfc2L2yOKQswvmT31w"
+        calendar-id="t1b1jlqqjc2336t8jdp6bfma8k@group.calendar.google.com">
+
+      </calendar-main>
+
+      <!-- <calendar-events></calendar-events> -->
     </div>
 
   </template>
