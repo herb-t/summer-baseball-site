@@ -184,6 +184,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         event.location = item.location ? item.location : 'No location available.';
         event.desc = item.description ? item.description : 'No description available.';
 
+        var ifPractice = new RegExp('Practice').test(event.title);
+        var ifGame = new RegExp('Game').test(event.title);
+
+        event.practice = ifPractice;
+        event.game = ifGame;
+
         var startDate = new Date(item.start.dateTime);
         var endDate = new Date(item.end.dateTime);
 

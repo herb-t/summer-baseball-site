@@ -152,9 +152,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
 
     <div class="card">
-      <h1 class="hero__headline">June 10, 2017 - 1st Practice <small>*could be June 11</small></h1>
-      <h2 class="hero__subheadline">Time and Location TBD</h2>
+      <h1 class="hero__headline">[[nextPractice.start.date]] | [[nextPractice.title]]</small></h1>
+      <h2 class="hero__subheadline">[[nextPractice.desc]]</h2>
     </div>
+
+    <!-- <div class="card">
+      <h1 class="hero__headline">[[nextGame.start.date]] | [[nextGame.title]]</small></h1>
+      <h2 class="hero__subheadline">[[nextGame.desc]]</h2>
+    </div> -->
 
     <div class="hero-header"></div>
 
@@ -189,7 +194,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         /**
          * Boolean to check the loaded status.
          */
-        loaded: Boolean
+        loaded: Boolean,
+        nextPractice: {
+          type: Object,
+          computed: '_computeNextPractice(events)'
+        },
+        nextGame: {
+          type: Object,
+          computed: '_computeNextGame(events)'
+        }
       },
 
       ready: function() {
@@ -202,6 +215,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             this._setupResponseData(obj.data);
           }.bind(this)
         }).run();
+      },
+
+      _computeNextPractice: function(events) {
+        var filtered = events.filter(function(event) { return event.practice === true });
+        var dates = [];
+        filtered.forEach(function(event) { dates.push(event.start.date); });
+
+        var nextDate = dates.length ? dates.reduce(function (a, b) { return a < b ? a : b; }) : '';
+        return filtered.filter(function(event) { return event.start.date === nextDate })[0];
+      },
+
+      _computeNextGame: function(events) {
+        var filtered = events.filter(function(event) { return event.game === true });
+        var dates = [];
+        filtered.forEach(function(event) { dates.push(event.start.date); });
+
+        var nextDate = dates.length ? dates.reduce(function (a, b) { return a < b ? a : b; }) : '';
+        return filtered.filter(function(event) { return event.start.date === nextDate })[0];
       },
 
       _setupResponseData: function(data) {

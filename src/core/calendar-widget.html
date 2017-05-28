@@ -570,12 +570,9 @@
                 classes.push('start');
               }
 
-              var ifPractice = new RegExp('Practice').test(event.title);
-              var ifGame = new RegExp('Game').test(event.title);
-
-              if(ifPractice) {
+              if(event.practice) {
                 classes.push('navy');
-              } else if(ifGame) {
+              } else if(event.game) {
                 classes.push('red');
               }
 
