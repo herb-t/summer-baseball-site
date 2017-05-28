@@ -11,6 +11,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../bower_components/paper-spinner/paper-spinner-lite.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 <script type="text/javascript" src="../bower_components/instafeed.js/instafeed.min.js"></script>
 <link rel="import" href="styles/shared-styles.html">
 
@@ -80,11 +81,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         .hero-header {
           max-width: 100%;
           height: 200px;
-          margin: 20px 0;
-          background: url('../images/hero.jpg')no-repeat fixed top center;
-          -webkit-background-size: cover;
-               -o-background-size: cover;
-                  background-size: cover;
+          padding: 20px 0;
+          /*background: url('../images/hero.jpg')no-repeat fixed top center;*/
+          background-color: #71a6ce;
+          background-image: url('../images/bg-cards-blue.jpg');
+          background-repeat: no-repeat;
+          background-position: center center;
+          -webkit-background-size: contain;
+               -o-background-size: contain;
+                  background-size: contain;
         }
       }
 
@@ -98,6 +103,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         -webkit-box-sizing: border-box;
            -moz-box-sizing: border-box;
                 box-sizing: border-box;
+      }
+
+      .hero__calendar-icon {
+        width: 18px;
+        height: 18px;
+        color: var(--calindar-blue);
+        display: inline-block;
+        margin-left: 6px;
       }
 
       .instagram-icon {
@@ -205,7 +218,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <div class="card">
 
-      <h4 class="hero__title">upcoming events</h4>
+      <div class="upcoming-events-header">
+        <h4 class="hero__title">upcoming events <iron-icon icon="icons:date-range" class="hero__calendar-icon"></iron-icon><iron</h4>
+      </div>
       <div class="upcoming-events">
 
         <!-- loading icon -->
@@ -230,7 +245,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <div class="hero-header"></div>
 
-    <div class="card">
+    <!-- <div class="card">
       <div class="instagram__feed">
         <template is="dom-repeat" items="{{responseData}}" as="picture">
           <a href="{{picture.link}}" class="instagram__photo" target="_blank">
@@ -238,7 +253,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           </a>
         </template>
       </div>
-    </div>
+    </div> -->
 
   </template>
 
