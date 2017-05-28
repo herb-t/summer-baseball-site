@@ -141,6 +141,20 @@ DateBehaviors.EventsBehavior = {
     return result.join('');
   },
   /**
+   * Calculate time of event.
+   */
+  _getDisplayTimeString: function(date) {
+    if(date) {
+      var time = date.toUTCString().slice(17, 22);
+      var minutes = time.replace(/^[0-9]{2}/g, '');
+      var hours = time.replace(/:+.*/g, '');
+      hours = parseInt(hours, 10);
+      minutes = hours > 12 ? minutes + 'PM' : minutes + 'AM';
+      hours = (hours - 12) === 0 ? 12 : hours - 12;
+      return hours + minutes;
+    }
+  },
+  /**
    * Wrap strings with unicode format control codepoints based on language direction
    */
   _wrapDirString: function(str, dir) {

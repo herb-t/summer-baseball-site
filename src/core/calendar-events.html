@@ -217,12 +217,11 @@
 
             <article class$="event [[_getSelectedClass(item.selected)]]" on-tap="_toggleEvent">
               <header>
-                <h1 class="title">[[item.title]]</h1>
+                <h1 class="title">[[item.title]] | [[_formatDate(item)]] | [[item.start.time]] - [[item.end.time]]</h1>
                 <iron-icon icon="icons:expand-more" class="icon expand"></iron-icon>
                 <iron-icon icon="icons:expand-less" class="icon collapse"></iron-icon>
               </header>
               <div class="more">
-                <h2 class="date">[[_formatDate(item)]]</h2>
                 <p class="desc">[[item.desc]]</span>
               </div>
             </article>

@@ -189,13 +189,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         event.start = {
           date: startDate,
           dateText: this._getDateDayString(startDate),
-          monthText: this._getDateMonthString(startDate)
+          monthText: this._getDateMonthString(startDate),
+          time: this._getDisplayTimeString(startDate)
         };
 
         event.end = {
           date: endDate,
           dateText: this._getDateDayString(endDate),
-          monthText: this._getDateMonthString(startDate)
+          monthText: this._getDateMonthString(endDate),
+          time: this._getDisplayTimeString(endDate)
         };
 
         return event;
