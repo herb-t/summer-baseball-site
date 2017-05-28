@@ -370,8 +370,6 @@
       _formatDate: function(item) {
 
         var times = ' | ' + item.start.time + ' - ' + item.end.time;
-        
-        console.log(item.start.dateText, item.end.dateText);
 
         return item.start.dateText === item.end.dateText ?
         this._getSingleDateString(item.start.date, 'en', 'ltr') + times :
