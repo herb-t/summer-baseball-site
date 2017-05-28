@@ -145,25 +145,16 @@ DateBehaviors.EventsBehavior = {
    */
   _getDisplayTimeString: function(date) {
     if(date) {
-      var time = date.toUTCString().slice(17, 22);
-      var minutes = time.replace(/^[0-9]{2}/g, '');
-      var hours = time.replace(/:+.*/g, '');
-      hours = parseInt(hours, 10);
-
-      if(hours < 12) {
-        minutes = minutes + 'AM'
-      } else if(hours >= 12) {
-        minutes = minutes + 'PM'
+      var options = {
+        hour12: true,
+        timeZone: 'America/New_York',
+        formatMatcher: 'best fit'
       }
 
-      if(hours > 12) {
-        hours = (hours - 16) === 0 ? 12 : (hours - 16);
-        console.log(hours);
-      } else if(hours === 0) {
-        hours = 12;
-      }
+      var time = date.toLocaleTimeString('en-US', options);
+      time = time.replace(/:.*?(:)/g, ':');
 
-      return hours + minutes;
+      return time;
     }
   },
   /**
