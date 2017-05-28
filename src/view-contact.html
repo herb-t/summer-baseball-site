@@ -17,9 +17,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <style include="shared-styles">
       :host {
         display: block;
-
-        padding: 10px 0;
-
+        padding: 35px 0;
       }
 
       a {
@@ -56,7 +54,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         border-bottom: 1px solid #ccc;
         margin: 20px 0;
       }
-        
+
 
       .grid__item {
         position: relative;
@@ -82,7 +80,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         line-height: 22px;
         font-weight: 700;
         color: var(--cardinal-navy);
-        letter-spacing: 1px;      
+        letter-spacing: 1px;
       }
 
       .item--desktop {
@@ -109,7 +107,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <h1 class="card__headline">Contact</h1>
 
       <div class="contact-grid">
-        
+
         <ul class="grid__row">
           <li class="grid__item"></li>
           <li class="grid__item">Phone</li>
@@ -124,7 +122,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <li class="grid__item">
               <template is="dom-if" if="[[item.hasPhone]]">
                 <a class="item__link item--desktop" href="tel:[[item.phone_link]]">[[item.phone_text]]</a>
-                <a class="item__link item--mobile" href="tel:[[item.phone_link]]">               
+                <a class="item__link item--mobile" href="tel:[[item.phone_link]]">
                   <iron-icon icon="communication:phone" class="list__icon item--mobile"></iron-icon>
                 </a>
               </template>
@@ -134,10 +132,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               <template is="dom-if" if="[[item.hasEmail]]">
                 <a class="item__link item--desktop" href="mailto:[[item.email_link]]" target="_blank">[[item.email_link]]</a>
                 <a class="item__link item--mobile" href="mailto:[[item.email_link]]" target="_blank">
-                  <iron-icon icon="communication:email" class="list__icon item--mobile"></iron-icon>    
+                  <iron-icon icon="communication:email" class="list__icon item--mobile"></iron-icon>
                 </a>
               </template>
-            </li>         
+            </li>
             <li class="grid__item">
               <template is="dom-if" if="[[item.hasWeb]]">
                 <a class="item__link item--desktop" href="[[item.web_link]]" target="_blank">[[item.web_text]]</a>
@@ -152,7 +150,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </template>
 
       </div>
-      
+
     </div>
   </template>
 
