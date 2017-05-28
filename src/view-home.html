@@ -166,7 +166,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </template>
       </div>
     </div>
-    
+
   </template>
 
   <script>
@@ -192,7 +192,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }).run();
       },
 
-      _setupResponseData(data) {
+      _setupResponseData: function(data) {
         var tagged = data.filter(function(picture) {
           var boolean = picture.tags.some(function(tag) {
             return tag === 'dags'
