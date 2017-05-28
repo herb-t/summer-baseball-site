@@ -18,7 +18,9 @@ DateBehaviors.EventsBehavior = {
    * @private
    */
   _getDateDayString: function(date) {
-    return date ? date.toISOString().slice(0, 10) : '';
+    var localDate = date.toLocaleDateString();
+    localDate = new Date(localDate).toISOString().slice(0, 10);
+    return date ? localDate : '';
   },
   /**
    * @private
