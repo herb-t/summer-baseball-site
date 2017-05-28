@@ -303,13 +303,13 @@
       .entry .text,
       .days-header span {
         font-size: 12px;
-      }     
+      }
     }
 
     @media screen and (max-width: 330px) {
       .entry .text {
         border-radius: 0;
-      }     
+      }
     }
 
     </style>
@@ -570,8 +570,8 @@
                 classes.push('start');
               }
 
-              var ifPractice = event.title.match(/^.+(Practice).*/g);
-              var ifGame = event.title.match(/^.+(Game).*/g);
+              var ifPractice = new RegExp('Practice').test(event.title);
+              var ifGame = new RegExp('Game').test(event.title);
 
               if(ifPractice) {
                 classes.push('navy');
