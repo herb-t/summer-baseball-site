@@ -227,19 +227,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <!-- loading icon -->
         <paper-spinner-lite class="upcoming-events__loader" active="[[!loaded]]"></paper-spinner-lite>
 
-        <template is="dom-if" if="[[loaded]]">
+        <template is="dom-if" if="[[nextPractice]">
           <h1 class="hero__headline">[[nextPractice.start.dateText]] &#124; [[nextPractice.title]]</h1>
           <h3 class="hero__time">[[nextPractice.start.time]] &#45; [[nextPractice.end.time]]</h3>
           <div class="hero__title-divider"></div>
+          <h2>
+            Location: <a href="[[nextPractice.locationLink]]" target="_blank">[[nextPractice.location]]</a>
+          </h2>
           <h2 class="hero__subheadline">[[nextPractice.desc]]</h2>
         </template>
 
-        <!-- <template is="dom-if" if="[[loaded]]">
+        <template is="dom-if" if="[[nextGame]]">
           <h1 class="hero__headline">[[nextGame.start.dateText]] &#124; [[nextGame.title]]</h1>
           <h3 class="hero__time">[[nextGame.start.time]] &#45; [[nextGame.end.time]]</h3>
           <div class="hero__title-divider"></div>
+          <h2>
+            Location: <a href="[[nextGame.locationLink]]" target="_blank">[[nextGame.location]]</a>
+          </h2>
           <h2 class="hero__subheadline">[[nextGame.desc]]</h2>
-        </template> -->
+        </template>
       </div>
 
     </div>

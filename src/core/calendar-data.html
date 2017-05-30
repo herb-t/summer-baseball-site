@@ -174,6 +174,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
        */
       _processResponseItem: function(item) {
 
+        console.log(item);
+
         if (!item.start.dateTime || !item.end.dateTime) {
           return;
         }
@@ -181,8 +183,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var event = {};
         event.__event = item;
         event.title = item.summary ? item.summary : 'No summary available.';
-        event.location = item.location ? item.location : 'No location available.';
         event.desc = item.description ? item.description : 'No description available.';
+        event.location = item.location ? item.location : 'No location available.';
+        event.locationLink = item.location ? 'http://maps.google.com/?q=' + item.location : '';
 
         var ifPractice = new RegExp('Practice').test(event.title);
         var ifGame = new RegExp('Game').test(event.title);
