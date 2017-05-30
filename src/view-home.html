@@ -11,9 +11,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../bower_components/paper-spinner/paper-spinner-lite.html">
-<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
-<script type="text/javascript" src="../bower_components/instafeed.js/instafeed.min.js"></script>
+<link rel="import" href="core/my-icons.html">
 <link rel="import" href="styles/shared-styles.html">
+
+<script type="text/javascript" src="../bower_components/instafeed.js/instafeed.min.js"></script>
 
 <dom-module id="view-home">
   <template>
@@ -33,6 +34,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         width: 100%;
         max-width: 100%;
         height: auto;
+      }
+
+      .upcoming-events {
+        position: relative;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+        width: 100%;
+        max-width: var(--max-site-width);
+        margin: 0 auto;
+        min-height: 75px;
+        padding: 16px;
+        border-radius: 2px;
+        -webkit-box-sizing: border-box;
+           -moz-box-sizing: border-box;
+                box-sizing: border-box;
       }
 
       .hero__title {
@@ -56,15 +71,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         margin: 0;
       }
 
-      .hero__time {
+      .hero__time,
+      .hero__location {
         margin: 0;
         font: 400 16px/22px "Open Sans", sans-serif;
+      }
+
+      .hero__location {
         color: var(--cardinal-navy);
+        text-decoration: none;
+        line-height: 24px;
       }
 
       .hero__subheadline {
         font: 400 18px/24px "Open Sans", sans-serif;
-        margin: 0;
+        margin: 16px 0 0 0;
       }
 
       .hero-header {
@@ -76,6 +97,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         -webkit-background-size: contain;
              -o-background-size: contain;
                 background-size: contain;
+      }
+
+      .hero__location-icon {
+        position: relative;
+        top: -3px;
+        display: inline-block;
+        color: var(--cardinal-red);
+        width: 24px;
+        height: 24px;
+        margin-left: 6px;
+      }
+
+      .hero__calendar-icon {
+        width: 18px;
+        height: 18px;
+        color: var(--calindar-blue);
+        display: inline-block;
+        margin-left: 6px;
       }
 
       @media screen and (min-width: 767px) {
@@ -90,28 +129,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                -o-background-size: contain;
                   background-size: contain;
         }
-      }
-
-      .upcoming-events {
-        position: relative;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-        width: 100%;
-        max-width: var(--max-site-width);
-        margin: 0 auto;
-        min-height: 75px;
-        padding: 16px;
-        border-radius: 2px;
-        -webkit-box-sizing: border-box;
-           -moz-box-sizing: border-box;
-                box-sizing: border-box;
-      }
-
-      .hero__calendar-icon {
-        width: 18px;
-        height: 18px;
-        color: var(--calindar-blue);
-        display: inline-block;
-        margin-left: 6px;
       }
 
       .instagram-icon {
@@ -220,7 +237,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <div class="card">
 
       <div class="upcoming-events-header">
-        <h4 class="hero__title">upcoming events <iron-icon icon="icons:date-range" class="hero__calendar-icon"></iron-icon></h4>
+        <h4 class="hero__title">upcoming events <iron-icon icon="my-icons:date-range" class="hero__calendar-icon"></iron-icon></h4>
       </div>
       <div class="upcoming-events">
 
@@ -231,9 +248,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <h1 class="hero__headline">[[nextPractice.start.dateText]] &#124; [[nextPractice.title]]</h1>
           <h3 class="hero__time">[[nextPractice.start.time]] &#45; [[nextPractice.end.time]]</h3>
           <div class="hero__title-divider"></div>
-          <h2>
-            Location: <a href="[[nextPractice.locationLink]]" target="_blank">[[nextPractice.location]]</a>
-          </h2>
+          <a href="[[nextPractice.locationLink]]" target="_blank" class="hero__location">
+            [[nextPractice.location]]
+            <iron-icon icon="my-icons:place" class="hero__location-icon"></iron-icon>
+          </a>
           <h2 class="hero__subheadline">[[nextPractice.desc]]</h2>
         </template>
 

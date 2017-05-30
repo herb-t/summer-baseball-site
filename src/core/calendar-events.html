@@ -1,6 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../bower_components/paper-spinner/paper-spinner-lite.html">
+<link rel="import" href="./my-icons.html">
 <link rel="import" href="./date-behavior.html">
 <link rel="import" href="./calendar-widget.html">
 
@@ -125,8 +126,22 @@
       }
 
       .more {
-        border-top: 1px solid var(--cardinal-red);
+        border-top: 1px solid #757575;
         box-sizing: border-box;
+      }
+
+      .calendar__link {
+        display: block;
+        margin-top: 14px;
+        text-decoration: none;
+        color: var(--cardinal-red);
+        font-size: 14px;
+        line-height: 22px;
+      }
+
+      .icon--place {
+        width: 18px;
+        height: 18px;
       }
 
       /* Extra UI styles */
@@ -225,9 +240,10 @@
                 <iron-icon icon="icons:expand-less" class="icon collapse"></iron-icon>
               </header>
               <div class="more">
-                <p>
-                  Location: <a href="[[item.locationLink]]" target="_blank">[[item.location]]</a>
-                </p>
+                <a href="[[item.locationLink]]" target="_blank" class="calendar__link">
+                  [[item.location]]
+                  <iron-icon icon="my-icons:place" class="icon--place"></iron-icon>
+                </a>
                 <p class="desc">[[item.desc]]</span>
               </div>
             </article>
