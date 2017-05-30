@@ -148,7 +148,7 @@ DateBehaviors.EventsBehavior = {
   _getDisplayTimeString: function(date) {
     if(date) {
       var time = date.toLocaleTimeString('en-US');
-      time = time.replace(/:.*?(:)/g, ':');
+      time = time.replace(/:+[0]+\s/g, ' ');
 
       return time;
     }
