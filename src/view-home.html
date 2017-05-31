@@ -118,6 +118,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         margin-left: 6px;
       }
 
+      .hero__time-icon {
+        position: relative;
+        top: -2px;
+        width: 16px;
+        height: 16px;
+        color: #757575;
+        display: inline-block;
+        margin-left: 6px;
+      }
+
       @media screen and (min-width: 767px) {
         .hero-header {
           max-width: 100%;
@@ -251,7 +261,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         <template is="dom-if" if="[[nextPractice]">
           <h1 class="hero__headline">[[_formatDate(nextPractice)]] &#124; [[nextPractice.title]]</h1>
-          <h3 class="hero__time">[[nextPractice.start.time]] &#45; [[nextPractice.end.time]]</h3>
+          <h3 class="hero__time">
+            [[nextPractice.start.time]] &#45; [[nextPractice.end.time]]
+            <iron-icon icon="my-icons:access-time" class="hero__time-icon"></iron-icon>
+          </h3>
           <div class="hero__title-divider" hidden$="[[_computeHidden(nextPractice.location, nextPractice.desc)]]"></div>
           <a href="[[nextPractice.locationLink]]" target="_blank" class="hero__location" hidden$="[[_computeHidden(nextPractice.location)]]">
             [[nextPractice.location]]
