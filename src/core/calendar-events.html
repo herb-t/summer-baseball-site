@@ -175,6 +175,10 @@
         font-weight: 500;
       }
 
+      [hidden] {
+        display: none !important;
+      }
+
       /* Mobile styles */
 
       @media screen and (max-width: 1250px) {
@@ -236,15 +240,15 @@
             <article class$="event [[_getSelectedClass(item.selected)]]" on-tap="_toggleEvent">
               <header>
                 <h1 class="title">[[item.title]] | [[_formatDate(item)]]</h1>
-                <iron-icon icon="icons:expand-more" class="icon expand"></iron-icon>
-                <iron-icon icon="icons:expand-less" class="icon collapse"></iron-icon>
+                <iron-icon icon="icons:expand-more" class="icon expand" hidden$="[[_computeHidden(item.location, item.desc)]]"></iron-icon>
+                <iron-icon icon="icons:expand-less" class="icon collapse" hidden$="[[_computeHidden(item.location, item.desc)]]"></iron-icon>
               </header>
               <div class="more">
-                <a href="[[item.locationLink]]" target="_blank" class="calendar__link">
+                <a href="[[item.locationLink]]" target="_blank" class="calendar__link" hidden$="[[_computeHidden(item.location)]]">
                   [[item.location]]
                   <iron-icon icon="my-icons:place" class="icon--place"></iron-icon>
                 </a>
-                <p class="desc">[[item.desc]]</span>
+                <p class="desc" hidden$="[[_computeHidden(item.desc)]]">[[item.desc]]</span>
               </div>
             </article>
 
@@ -318,6 +322,21 @@
         zeroEvents: {
           type: Boolean,
           computed: '_computeZeroEvents(events, eventsLoaded, eventsFilter)'
+        }
+      },
+
+      /**
+       * Compute hidden function for location and description
+       * @param  {string} propOne property one
+       * @param  {string} propTwo property two
+       * @return {boolean} boolean returned based off property
+       */
+      _computeHidden: function(propOne, propTwo) {
+        if(propOne) {
+          return propOne === 'hide' ? true : false;
+        } else if(propOne && propTwo) {
+          return propOne === 'hide' && propTwo === 'hide' ?
+          true : false;
         }
       },
 

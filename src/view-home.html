@@ -183,6 +183,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         background: var(--cardinal-navy);
       }
 
+      [hidden] {
+        display: none !important;
+      }
+
       .upcoming-events__loader {
         position: absolute;
         left: 50%;
@@ -247,22 +251,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <template is="dom-if" if="[[nextPractice]">
           <h1 class="hero__headline">[[nextPractice.start.dateText]] &#124; [[nextPractice.title]]</h1>
           <h3 class="hero__time">[[nextPractice.start.time]] &#45; [[nextPractice.end.time]]</h3>
-          <div class="hero__title-divider"></div>
-          <a href="[[nextPractice.locationLink]]" target="_blank" class="hero__location">
+          <div class="hero__title-divider" hidden$="[[_computeHidden(nextPractice.location, nextPractice.desc)]]"></div>
+          <a href="[[nextPractice.locationLink]]" target="_blank" class="hero__location" hidden$="[[_computeHidden(nextPractice.location)]]">
             [[nextPractice.location]]
             <iron-icon icon="my-icons:place" class="hero__location-icon"></iron-icon>
           </a>
-          <h2 class="hero__subheadline">[[nextPractice.desc]]</h2>
+          <h2 class="hero__subheadline" hidden$="[[_computeHidden(nextPractice.desc)]]">[[nextPractice.desc]]</h2>
         </template>
 
         <template is="dom-if" if="[[nextGame]]">
           <h1 class="hero__headline">[[nextGame.start.dateText]] &#124; [[nextGame.title]]</h1>
           <h3 class="hero__time">[[nextGame.start.time]] &#45; [[nextGame.end.time]]</h3>
-          <div class="hero__title-divider"></div>
-          <h2>
+          <div class="hero__title-divider" hidden$="[[_computeHidden(nextGame.location, nextGame.desc)]]"></div>
+          <h2 hidden$="[[_computeHidden(nextGame.location)]]">
             Location: <a href="[[nextGame.locationLink]]" target="_blank">[[nextGame.location]]</a>
           </h2>
-          <h2 class="hero__subheadline">[[nextGame.desc]]</h2>
+          <h2 class="hero__subheadline" hidden$="[[_computeHidden(nextGame.desc)]]">[[nextGame.desc]]</h2>
         </template>
       </div>
 
@@ -322,6 +326,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             this._setupResponseData(obj.data);
           }.bind(this)
         }).run();
+      },
+
+      /**
+       * Compute hidden function for location and description
+       * @param  {string} propOne property one
+       * @param  {string} propTwo property two
+       * @return {boolean} boolean returned based off property
+       */
+      _computeHidden: function(propOne, propTwo) {
+        if(propOne) {
+          return propOne === 'hide' ? true : false;
+        } else if(propOne && propTwo) {
+          return propOne === 'hide' && propTwo === 'hide' ?
+          true : false;
+        }
       },
 
       _computeNextPractice: function(events) {
