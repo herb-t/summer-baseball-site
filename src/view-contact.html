@@ -9,7 +9,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="../bower_components/iron-icons/communication-icons.html">
+<link rel="import" href="core/my-icons.html">
 <link rel="import" href="styles/shared-styles.html">
 
 <dom-module id="view-contact">
@@ -136,7 +136,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               <template is="dom-if" if="[[item.hasPhone]]">
                 <a class="item__link item--desktop" href="tel:[[item.phone_link]]">[[item.phone_text]]</a>
                 <a class="item__link item--mobile" href="tel:[[item.phone_link]]">
-                  <iron-icon icon="communication:phone" class="list__icon item--mobile"></iron-icon>
+                  <iron-icon icon="my-icons:phone" class="list__icon item--mobile"></iron-icon>
                 </a>
               </template>
             </li>
@@ -145,7 +145,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               <template is="dom-if" if="[[item.hasEmail]]">
                 <a class="item__link item--desktop" href="mailto:[[item.email_link]]" target="_blank">[[item.email_link]]</a>
                 <a class="item__link item--mobile" href="mailto:[[item.email_link]]" target="_blank">
-                  <iron-icon icon="communication:email" class="list__icon item--mobile"></iron-icon>
+                  <iron-icon icon="my-icons:email" class="list__icon item--mobile"></iron-icon>
                 </a>
               </template>
             </li>
@@ -153,7 +153,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               <template is="dom-if" if="[[item.hasWeb]]">
                 <a class="item__link item--desktop" href="[[item.web_link]]" target="_blank">[[item.web_text]]</a>
                 <a class="item__link item--mobile" href="[[item.web_link]]" target="_blank">
-                  <iron-icon icon="communication:stay-primary-landscape" class="list__icon item--mobile"></iron-icon>
+                  <iron-icon icon="my-icons:link" class="list__icon item--mobile"></iron-icon>
                 </a>
               </template>
             </li>
