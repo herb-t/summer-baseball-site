@@ -29,6 +29,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       :host .card:first-of-type {
         margin-bottom: 0;
+        padding-bottom: 0;
       }
 
       .hero {
@@ -85,7 +86,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       .hero__subheadline {
-        font: 400 18px/24px "Open Sans", sans-serif;
+        font: 400 16px/24px "Open Sans", sans-serif;
         margin: 16px 0 0 0;
       }
 
@@ -126,6 +127,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         color: #757575;
         display: inline-block;
         margin-left: 6px;
+      }
+
+      .hero-content-divider {
+        margin: 32px auto;
       }
 
       @media screen and (min-width: 767px) {
@@ -260,6 +265,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <paper-spinner-lite class="upcoming-events__loader" active="[[!loaded]]"></paper-spinner-lite>
 
         <template is="dom-if" if="[[nextPractice]">
+          <h4 class="hero__title">next practice</h4>
           <h1 class="hero__headline">[[_formatDate(nextPractice)]] &#124; [[nextPractice.title]]</h1>
           <h3 class="hero__time">
             [[nextPractice.start.time]] &#45; [[nextPractice.end.time]]
@@ -272,31 +278,39 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           </a>
           <h2 class="hero__subheadline" hidden$="[[_computeHidden(nextPractice.desc)]]">[[nextPractice.desc]]</h2>
         </template>
+      </div>
+
+    </div>
+
+    <div class="card">
+
+      <div class="upcoming-events">
+
+        <!-- loading icon -->
+        <paper-spinner-lite class="upcoming-events__loader" active="[[!loaded]]"></paper-spinner-lite>
 
         <template is="dom-if" if="[[nextGame]]">
+          <h4 class="hero__title">next game</h4>
           <h1 class="hero__headline">[[_formatDate(nextGame)]] &#124; [[nextGame.title]]</h1>
-          <h3 class="hero__time">[[nextGame.start.time]] &#45; [[nextGame.end.time]]</h3>
+          <h3 class="hero__time">
+            [[nextGame.start.time]] &#45; [[nextGame.end.time]]
+            <iron-icon icon="my-icons:access-time" class="hero__time-icon"></iron-icon>
+          </h3>
           <div class="hero__title-divider" hidden$="[[_computeHidden(nextGame.location, nextGame.desc)]]"></div>
           <h2 hidden$="[[_computeHidden(nextGame.location)]]">
-            Location: <a href="[[nextGame.locationLink]]" target="_blank">[[nextGame.location]]</a>
+            <a href="[[nextGame.locationLink]]" class="hero__location" target="_blank">
+              [[nextGame.location]]
+              <iron-icon icon="my-icons:place" class="hero__location-icon"></iron-icon>
+            </a>
           </h2>
           <h2 class="hero__subheadline" hidden$="[[_computeHidden(nextGame.desc)]]">[[nextGame.desc]]</h2>
         </template>
+
       </div>
 
     </div>
 
     <div class="hero-header"></div>
-
-    <!-- <div class="card">
-      <div class="instagram__feed">
-        <template is="dom-repeat" items="{{responseData}}" as="picture">
-          <a href="{{picture.link}}" class="instagram__photo" target="_blank">
-            <img src="{{picture.images.standard_resolution.url}}" alt="Cardinals 2017">
-          </a>
-        </template>
-      </div>
-    </div> -->
 
   </template>
 
